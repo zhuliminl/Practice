@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8"/>
+	<title>使用 jQuery 全屏插件</title>
+
+	<link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/jquery-fullPage/2.7.4/jquery.fullPage.css
+">
+	<!-- 页面样式 -->
+	<style type="text/css">
+
+	</style>
+	<!-- 库和插件引入 -->
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js
+"></script>
+	<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery-fullPage/2.7.4/jquery.fullPage.js
+"></script>
+	<!-- 调用插件 -->
+	<script type="text/javascript">
+
+		$(function() {
+			$('#container').fullpage({
+				slidesColor: ['#f6846c','#ff5e6d','#88cb58','#f6846c','#f3f5f8']
+			});
+		});
+		
+	</script>
+</head>
+
+<body>
+	<!-- 选项卡开始 -->
+	<ul id="menu">
+		<li data-menuanchor="page1">选显卡1</li>
+		<li data-menuanchor="page2">选项卡2</li>
+		<li data-menuanchor="page3">选项卡3</li>
+		<li data-menuanchor="page4">选项卡4</li>
+		<li data-menuanchor="page5">选项卡5</li>
+	</ul>
+	<!-- 选项卡结束 -->
+	<!-- 滚动页面开始 -->
+	<div id="container">
+		<div class="section">首屏</div>
+		<div class="section">二屏</div>
+		<div class="section">三屏</div>
+		<div class="section">四屏</div>
+		<div class="section">五屏</div>
+	</div>
+	<!-- 滚动页面结束	 -->
+
+	
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
