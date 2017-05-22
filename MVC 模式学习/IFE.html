@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>IFE</title>
+	<style type="text/css">
+		body {
+			padding: 40px;
+			font-family: "Source Code Pro","PingFang SC","微软雅黑","Microsoft YaHei",Helvetica,"Helvetica Neue",Tahoma,Arial,sans-serif;
+			font-size: 16px;
+		}
+		ul,li {
+			list-style: none;
+			padding: 0;
+		}
+		#peopleModule {
+			margin-top: 50px;
+			padding: 20px;
+			color: #888;
+			background-color: #f3f5f8;
+		}
+		input[type='text'], button {
+			padding: 7px;
+			font-size: 18px;
+			border: none;
+			border-radius: 4px;
+		}
+		input[type='text'] {
+			padding-left: 15px;
+			width: 100px;
+			color: #333;
+			background-color: #fff;
+			/*border-bottom: 1px solid #888;*/
+		}
+		#addPerson {
+			padding-left: 20px;
+			padding-right: 20px;
+			color:#fff;
+			background-color: #f6846c;
+			cursor: auto;
+		}
+		#addPerson:hover {
+			box-shadow: 1px 2px 3px #aaa;
+		}
+		#people {
+			width: 200px;
+		}	
+		#people li {
+			margin-top: 10px;
+			padding: 5px 10px;
+			background-color: #fff;
+			overflow: hidden;
+		}
+		#people li i {
+			float: right;
+			padding: 2px 7px;
+			font-style: normal;
+			font-size: 13px;
+			font-family: "PingFang SC";
+			color: #fff;
+			opacity: .5;
+			border-radius: 100%;
+			background-color: #f6846c;
+			cursor: pointer;
+			transition: opacity .3s;
+		}	
+		#people li i:hover {
+			opacity: 1;
+		}
+
+	</style>
+</head>
+<body>
+	<!-- 标题 -->
+	<div class="hero-unit">
+		<h1>Modular<br>JavaScript</h1>
+	</div>
+	<!-- 标题结束 -->
+
+	<div id="peopleModule">
+		<h1>people</h1>
+		<input type="text" placeholder="name">
+		<button id="addPerson">add</button>
+		<ul id="people">
+			<!-- 模版开始 -->
+			<script type="text/template" id="people-template">
+				{{#people}}
+					<li>
+						<!-- 带点的语法，可以循环一个字符串数组，并指向当前项 -->
+						<span>{{.}}</span>
+						<i class="del">X</i>
+					</li>
+				{{/people}}
+			</script>
+			<!-- 模版结束 -->
+		</ul>
+	</div>
+<script type="text/javascript" src='http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js'></script>
+<script type="text/javascript" src='mustache.js'></script>
+<script type="text/javascript">
+
+$(function() {
+	var people =[]; // 放人名的容器
+	var template = $('#people-template').html(); // 拿到模版
+
+	$('#peopleModule').find('button').on('click', function() {
+
+		people.push($('#peopleModule').find('input').val()); // 提交输入的人名到容器数组里
+		$('#peopleModule').find('input')[0].placeholder = ''; // 清空
+	
+
+		var data = {
+			people: people // 渲染的是对象，所以下包装成 data
+		};
+	
+		var templateContent = Mustache.render(template, data);
+		// console.log(templateContent);
+		$('#peopleModule').find('ul').html(templateContent); // 渲染后更新到dom
+	});
+
+	$('#peopleModule').find('ul').delegate('i.del', 'click', function(e) {
+		
+		var $remove = $('e.taget').closest('li'); // 只有追溯到它的父元素，才能知道自己的索引
+		var i = $('#peopleModule').find('ul').find('li').index($remove); // 拿到被删除的索引
+		console.log(i);
+		console.log($remove);
+		$remove.remove();
+		people.splice(i, 1); // 在人名的数据容器里面也删除
+	})
+})
+
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
