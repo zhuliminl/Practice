@@ -28,9 +28,12 @@
 		input[type='text'] {
 			padding-left: 15px;
 			width: 100px;
-			color: #333;
+			color: #111;
 			background-color: #fff;
 			/*border-bottom: 1px solid #888;*/
+		}
+		#input[type='text']::input-placeholder {
+			color: #eee;
 		}
 		#addPerson {
 			padding-left: 20px;
@@ -133,60 +136,85 @@
 			<!-- 模版结束 -->
 		</ul>
 	</div>
-	<div id="warning">
+	<!-- 提示弹窗 -->
+	<!-- <div id="warning">
 		<p>输入为空！</p>
 		<button id='cancel'>关闭</button>
-	</div>
+	</div> -->
 <!-- 引入 jQuery 文件 -->
 <script type="text/javascript" src='http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js'></script>
 <!-- 引入模版 js -->
 <script type="text/javascript" src='mustache.js'></script>
+	
+
+<script type="text/javascript" src="IFE/modulejs-step1.js">
+
+</script>
+
+
+
 
 <script type="text/javascript">
 
-$(function() {
-
-		var lightBox = $("#warning").detach(); // 隐藏弹出框
-	var people =[]; // 放人名的容器
-	var template = $('#people-template').html(); // 拿到模版
-
-	$('#peopleModule').find('button').on('click', function() {
-		
-		var inputText = $('#peopleModule').find('input').val();
-		if(inputText === '') {
-			$('body').append(lightBox);
-			lightBox.show();
-		}
-
-		$('#cancel').on('click', function() {
-				$("#warning").hide();
-			});
-
-		people.push($('#peopleModule').find('input').val()); // 提交输入的人名到容器数组里
-		$('#peopleModule').find('input').val('')[0].removeAttribute('placeholder'); // 清空
-		console.log($('#peopleModule').find('input').val('')[0]);
-
-		var data = {
-			people: people // 渲染的是对象，所以下包装成 data
-		};
 	
-		var templateContent = Mustache.render(template, data);
-		// console.log(templateContent);
-		$('#peopleModule').find('ul').html(templateContent); // 渲染后更新到dom
-	});
+	// 很挫很挫的写法
+	// $(function() {
 
-	$('#peopleModule').find('ul').delegate('i.del', 'click', function(e) {
+
+
+
+	// var lightBox = $("#warning").detach(); // 隐藏弹出框
+	// var people =[]; // 放人名的容器
+	// var templateL = $('#people-template').html(); // 拿到模版
+
+	// $('#peopleModule').find('button').on('click', function() {
 		
-		var $remove = $(e.target).closest('li'); // 只有追溯到它的父元素，才能知道自己的索引
-		var i = $('#peopleModule').find('ul').find('li'); // 拿到被删除的索引
-		console.log(i);
-		console.log($remove);
-		$remove.remove();
-		people.splice(i, 1); // 在人名的数据容器里面也删除
-		// console.log($('h1'));
-	});
-	
-})
+	// 	var inputText = $('#peopleModule').find('input').val();
+	// 	if(inputText === '') {
+	// 		$('body').append(lightBox);
+	// 		lightBox.show();
+	// 	}
+
+	// 	$('#cancel').on('click', function() {
+	// 			$("#warning").hide();
+	// 		});
+
+	// 	people.push($('#peopleModule').find('input').val()); // 提交输入的人名到容器数组里
+	// 	$('#peopleModule').find('input').val('')[0].removeAttribute('placeholder'); // 清空
+	// 	console.log($('#peopleModule').find('input').val('')[0]);
+
+	// 	var data = {
+	// 		people: people // 渲染的是对象，所以下包装成 data
+	// 	};
+
+	// 	var templateContent = Mustache.render(template, data);
+	// 	// console.log(templateContent);
+	// 	$('#peopleModule').find('ul').html(templateContent); // 渲染后更新到dom
+	// });
+
+	// $('#peopleModule').find('ul').delegate('i.del', 'click', function(e) {
+		
+	// 	var $remove = $(e.target).closest('li'); // 只有追溯到它的父元素，才能知道自己的索引
+	// 	var i = $('#peopleModule').find('ul').find('li'); // 拿到被删除的索引
+	// 	console.log(i);
+	// 	console.log($remove);
+	// 	$remove.remove();
+	// 	people.splice(i, 1); // 在人名的数据容器里面也删除
+	// 	// console.log($('h1'));
+	// });
+
+
+
+
+
+		
+	// })
+
+
+
+
+
+
 
 </script>
 </body>
