@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<title>IFE</title>
 	<style type="text/css">
+
 		body {
 			padding: 40px;
 			font-family: "Source Code Pro","PingFang SC","微软雅黑","Microsoft YaHei",Helvetica,"Helvetica Neue",Tahoma,Arial,sans-serif;
@@ -109,6 +110,7 @@
 		#warning button:hover {
 			opacity: 1;
 		}
+
 	</style>
 </head>
 <body>
@@ -137,86 +139,77 @@
 		</ul>
 	</div>
 	<!-- 提示弹窗 -->
-	<!-- <div id="warning">
+	<div id="warning">
 		<p>输入为空！</p>
-		<button id='cancel'>关闭</button>
-	</div> -->
+		<button >关闭</button>
+	</div>
 <!-- 引入 jQuery 文件 -->
 <script type="text/javascript" src='http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js'></script>
 <!-- 引入模版 js -->
 <script type="text/javascript" src='mustache.js'></script>
-	
-
-<script type="text/javascript" src="IFE/modulejs-step1.js">
-
-</script>
 
 
-
-
-<script type="text/javascript">
-
+<!-- 很挫很挫的写法 -->
+<!-- <script type="text/javascript">
 	
 	// 很挫很挫的写法
-	// $(function() {
+	$(function() {
+	var lightBox = $("#warning").detach(); // 隐藏弹出框
+	var people =[]; // 放人名的容器
+	var templateL = $('#people-template').html(); // 拿到模版
 
-
-
-
-	// var lightBox = $("#warning").detach(); // 隐藏弹出框
-	// var people =[]; // 放人名的容器
-	// var templateL = $('#people-template').html(); // 拿到模版
-
-	// $('#peopleModule').find('button').on('click', function() {
+	$('#peopleModule').find('button').on('click', function() {
 		
-	// 	var inputText = $('#peopleModule').find('input').val();
-	// 	if(inputText === '') {
-	// 		$('body').append(lightBox);
-	// 		lightBox.show();
-	// 	}
+		var inputText = $('#peopleModule').find('input').val();
+		if(inputText === '') {
+			$('body').append(lightBox);
+			lightBox.show();
+		}
 
-	// 	$('#cancel').on('click', function() {
-	// 			$("#warning").hide();
-	// 		});
+		$('#cancel').on('click', function() {
+				$("#warning").hide();
+			});
 
-	// 	people.push($('#peopleModule').find('input').val()); // 提交输入的人名到容器数组里
-	// 	$('#peopleModule').find('input').val('')[0].removeAttribute('placeholder'); // 清空
-	// 	console.log($('#peopleModule').find('input').val('')[0]);
+		people.push($('#peopleModule').find('input').val()); // 提交输入的人名到容器数组里
+		$('#peopleModule').find('input').val('')[0].removeAttribute('placeholder'); // 清空
+		console.log($('#peopleModule').find('input').val('')[0]);
 
-	// 	var data = {
-	// 		people: people // 渲染的是对象，所以下包装成 data
-	// 	};
+		var data = {
+			people: people // 渲染的是对象，所以下包装成 data
+		};
 
-	// 	var templateContent = Mustache.render(template, data);
-	// 	// console.log(templateContent);
-	// 	$('#peopleModule').find('ul').html(templateContent); // 渲染后更新到dom
-	// });
+		var templateContent = Mustache.render(template, data);
+		// console.log(templateContent);
+		$('#peopleModule').find('ul').html(templateContent); // 渲染后更新到dom
+	});
 
-	// $('#peopleModule').find('ul').delegate('i.del', 'click', function(e) {
+	$('#peopleModule').find('ul').delegate('i.del', 'click', function(e) {
 		
-	// 	var $remove = $(e.target).closest('li'); // 只有追溯到它的父元素，才能知道自己的索引
-	// 	var i = $('#peopleModule').find('ul').find('li'); // 拿到被删除的索引
-	// 	console.log(i);
-	// 	console.log($remove);
-	// 	$remove.remove();
-	// 	people.splice(i, 1); // 在人名的数据容器里面也删除
-	// 	// console.log($('h1'));
-	// });
+		var $remove = $(e.target).closest('li'); // 只有追溯到它的父元素，才能知道自己的索引
+		var i = $('#peopleModule').find('ul').find('li'); // 拿到被删除的索引
+		console.log(i);
+		console.log($remove);
+		$remove.remove();
+		people.splice(i, 1); // 在人名的数据容器里面也删除
+		// console.log($('h1'));
+	});	
+	})
+	
+</script> -->
 
 
 
-
-
-		
-	// })
-
+<!-- 初步模块化代码 -->
+<!-- <script type="text/javascript" src="IFE/modulejs-step1.js"></script> -->
 
 
 
+<!-- 进一步模块化代码 -->
+<script type="text/javascript" src="IFE/modulejs-step2.js"></script>
 
 
 
-</script>
+	
 </body>
 </html>
 

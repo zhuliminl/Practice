@@ -26,7 +26,8 @@
 
 			trigger : function() {
 				var args = $.makeArray(arguments);
-				var ev = args.shift();
+				var ev = args.shift(); // 还是要好好巩固数据结构和基本算法啊。
+				// 简单复习一下几个关键词：数组，链表，双向链表，字典，集合，二叉树，几种排序，递归这些以后都要过一遍
 
 				var list, calls, i, l;
 				if(!(calls = this._callbacks)) return this;
