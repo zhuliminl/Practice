@@ -110,7 +110,10 @@
 		#warning button:hover {
 			opacity: 1;
 		}
-
+		#counts span {
+			padding: 100px 10px;
+			color: #f6846c;
+		}
 	</style>
 </head>
 <body>
@@ -122,6 +125,16 @@
 
 	<div id="peopleModule">
 		<h1>people</h1>
+
+		<div id="counts">
+			<!-- 纪录数量模版开始 -->
+			<script type="text/template" id="count-template">
+				<p>纪录了<span>{{counts}}</span>人</p>
+				
+			</script>
+			<!-- 模版结束 -->
+		</div>
+
 		<input type="text" placeholder="name">
 		<button id="addPerson">add</button>
 		<ul id="people">

@@ -8,7 +8,7 @@
 <body>
 	<script type="text/javascript">
 		var events = {
-			events : {}, // 首先创建一个对象用来存放
+			events : {}, // 首先创建一个对象用来存放。
 			// 绑定事件
 			ready: function(eName, fn) { // 参数： 事件名， 执行函数
 				this.events[eName] = this.events[eName] || [];
@@ -19,7 +19,7 @@
 				if(this.events[eName]) {
 					for (var i = 0; i < this.events[eName].length; i++) {
 						if(this.events[eName][i] === fn) { // 如果找到符合 fn 的事件
-							this.events[eName].splice(i, i); // 那就删除并退出
+							this.events[eName].splice(i, 1); // 那就删除并退出
 							console.log('Event is gone!!!') // 事件没了哈哈
 							break;
 						}

@@ -1,3 +1,71 @@
+
+// 发布和订阅
+var events = {
+	events : {}, // 首先创建一个对象用来存放。
+	// 绑定事件
+	ready: function(eName, fn) { // 参数： 事件名， 执行函数
+		this.events[eName] = this.events[eName] || [];
+		this.events[eName].push(fn);
+	},
+	// 取消事件
+	cancel: function(eName, fn) {
+		if(this.events[eName]) {
+			for (var i = 0; i < this.events[eName].length; i++) {
+				if(this.events[eName][i] === fn) { // 如果找到符合 fn 的事件
+					this.events[eName].splice(i, 1); // 那就删除并退出
+					console.log('Event is gone!!!') // 事件没了哈哈
+					break;
+				}
+			}
+		}
+	},
+	// 启动事件
+	go: function(eName, data) { // 参数： 事件名， 执行函数的参数——也就是说绑定事件里的执行函数会在这里配上参数来执行
+		this.events[eName].forEach(function(fn) {
+			fn(data);
+		})
+
+	}
+};
+
+
+
+
+var count = (function() {
+	var counts = 0;
+	// cache DOM
+	var $counts = $('#counts');
+	var template = $counts.find('#count-template').html();
+
+	// 绑定事件 
+	events.ready('peopleChange', countPeople);
+	events.ready('test', test);
+	function test() {console.log('test')};
+	// render
+	render();
+	function render() {
+		var data = {
+			counts : counts
+		}
+		$counts.html(Mustache.render(template, data));
+
+	}
+
+	// 定义事件函数
+	function countPeople(peopleLength) {
+		counts = peopleLength;
+		render();
+	}
+	function destroy() {
+		events.cancel('peopleChange', countPeople);
+	}
+	return {
+		destroy : destroy
+	};
+
+})();
+
+
 var people = (function() {
 	// 缓存元素
 	$el = $('#peopleModule');
@@ -23,7 +91,9 @@ var people = (function() {
 		var data = {
 			people: people
 		};
-		$ul.html(Mustache.render(template, data)); 
+		$ul.html(Mustache.render(template, data));
+		events.go('peopleChange', people.length); // 绑定事件，并传入数据
+
 	}
 
 	// 定义事件函数
@@ -68,42 +138,29 @@ var people = (function() {
 	}
 })();
 
-function hello(str) {console.log(str)}
 
-var obj = {
-	names : {},
-	ready : function(name, fn) {
-		this.names[name] = this.names[name] || []; // 在对象里面创建数组来储存被执行的函数
-		this.names[name].push(fn);
-	},
-	cancel: function(name, fn) {
-		if(this.names[name]) {
-			for (var i = 0; i < this.names[name].length; i++) {
-				if(this.names[name][i] === fn) { // 在这个事件数组里面找到一项是要执行 fn 函数的，那就
-					this.names[name].splice(i);
-					break;
-				}
-			}
-		}	
-	},
-	go: function(name, data) {
-		this.names[name].forEach(function(fn) {
-			fn(data);
-			// 这里是回调函数
-			// 个人理解回调函数三要素: 结构形式， 被调用函数， 执行声明
-			// 显然，这里 fn 是结构形式， data 为被调用函数（独立无关），而执行声明是通过 forEach()来完成
-		})
-	}
-};
 
-obj.ready('zhu', hello);
-obj.ready('saul', hello);
-obj.cancel('saul', hello); // 看，这里取消了事件
 
-console.log(obj.names);
-console.log(obj.names['zhu']);
-obj.go('zhu', '你好呀');
-obj.go('saul', '爱你哦');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
