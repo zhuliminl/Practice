@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>第二章__半透明背景</title>
+	<style type="text/css">
+		body {
+			font-family: 'PingFang SC';
+			line-height: 1.8;
+			color: #888;
+		}
+
+		figure {
+			max-width: 500px;
+		}
+		img {
+			max-width: 100%;
+		}
+
+		.bg-img {
+			padding: 3em;
+			width: 500px;
+			background: url(img/A.jpg);
+			background-size: cover;
+
+		}
+		p {
+			padding: 1em;
+			background: #fff;
+			background-clip: padding-box;/*通过剪裁得到想要的效果*/
+			border: 10px solid hsla(120, 39%, 33%, .5);
+		}
+
+	</style>
+</head>
+<body>
+	<figure>
+		<img src="img/A.jpg" alt="">
+	</figure>
+	<div class="bg-img"> <p>
+		我们可以通过 background-clip 属性来调整上述默认行为所带来的不
+		便。 这个属性的初始值是 border-box， 意味着背景会被元素的 border box
+		（ 边框的外沿框） 裁切掉。 如果不希望背景侵入边框所在的范围， 我们要做
+		的就是把它的值设为 padding-box， 这样浏览器就会用内边距的外沿来把背
+		景裁切掉
+	</p></div>
+</body>
+</html>

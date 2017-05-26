@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>10.1.1</title>
+</head>
+<body style="font-family: monospace;font-size: 18px;">
+	<div style="float: left">
+		<h3>排序算法</h3>
+		<ul>
+			<li>冒泡排序_ <em>bubbleSort</em></li>
+			<li>选择排序_ <em>selectionSort</em></li>
+			<li>插入排序_ <em>insertionSort</em></li>
+			<li>归并排序_ <em>mergeSort</em></li>
+			<li>快速排序_ <em>quickSort</em></li>
+		</ul>
+	</div>
+	<div style="float: left; margin-left: 100px;">
+		<h3>搜索算法</h3>
+		<ul>
+			<li>顺序搜索</li>
+			<li>二分搜索</li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+
+		function showTitle(title) {
+			console.log('\n');
+			console.log(title);
+		}
+
+		showTitle('排序算法');
+
+		//数据框架
+		function ArrayList() {
+			var array = [];
+			this.insert = function(item) {
+				array.push(item);
+			};
+			this.toString = function() {
+				return array.join();
+			};
+			//先写一个通用的交换前后顺序的函数swap
+			var swap = function(index1, index2) {
+				var aux = array[index1];
+				array[index1] = array[index2];
+				array[index2] = aux;
+			}
+
+			//冒泡排序——————最差的一个
+			this.bubbleSort = function() {
+				var length = array.length;
+				for (var i = 0; i < length; i++) { //外循环
+					for (var j = 0; j < length - 1; j++) { //内循环少一轮
+
+						if(array[j] > array[j + 1]) {
+							swap(j, j + 1); //交换
+						}
+					}
+				}
+			};
+
+			//改进一下，避免不必要的比较
+			this.modifiedBubbleSort = function() {
+				var length = array.length;
+				for (var i = 0; i < length; i++) {
+					for (var j = 0; j < length - 1 - i; j++) {
+						//i每增加一次，后面的比较就可以少一轮，使得已经
+						//在正确位置上的数字没有被比较
+						if(array[j] > array[j + 1]) {
+							swap(j, j + 1);
+						}
+					}
+				}
+			};
+
+			//选择排序————一种原值比较排序算法，也很复杂
+			this.selectionSort = function() {
+				var length = array.length,
+					indexMin; //假设的最小项索引
+
+				for (var i = 0; i < length - 1; i++) { //注意外循环的次数
+
+					indexMin = i; //j假设最小项就是当前项
+
+					for (var j = i; j < length; j++) { //已经排列好的就不必再管
+						if(array[indexMin] > array[j]) {
+							//如果当前项比下一项要大
+							indexMin = j; 
+						}
+					}
+					if(i !== indexMin) { //最后，验证假定的最小项是不是最初假定的
+						//如果不是，那就把最小值换前面去
+						swap(i, indexMin);
+					}
+					
+				}
+			};
+
+			//插入排序
+			this.insertionSort = function() {
+				var length = array.length,
+					j, temp;
+				for (var i = 1; i < length; i++) {
+
+					j = i; //匹配到该插入的项
+
+					temp = array[i]; //暂存需要插入项
+					while(j > 0 && array[j - 1] > temp) { //当前一项比后一项大
+						//那就将前一项挪到后一项
+						array[j] = array[j - 1];
+						j --; //继续往前比较
+
+					}
+
+					array[j] = temp; //把一开始需要插入的项就插到最靠前的位置，从而实现排序
+				}
+			};
+
+			//归并排序
+			this.mergeSort = function() {
+				array = mergeSortRec(array);
+			};
+
+			var mergeSortRec = function(array) {
+
+				var length = array.length;
+
+				if(length === 1) { //这是递归的终止条件
+					return array;
+				}
+
+				var mid = Math.floor(length / 2), //取数组的一半
+					//切成两份
+				    left = array.slice(0, mid),
+				    right = array.slice(mid, length);
+
+			    //开始递归
+			    return merge(mergeSortRec(left), mergeSortRec(right));
+
+			}
+
+			//合并数组的辅助函数
+			var merge = function(left, right) {
+				//初始化结果数组和递增变量
+				var result = [],
+					il = 0, 
+					ir = 0;
+
+				while(il < left.length && ir < right.length) {
+					//比较后加入结果数组
+					if(left[il] < right[ir]) {
+						result.push(left[il++]);
+					} else {
+						result.push(right[ir++]);
+					}
+				}
+
+				while(il < left.length) {
+					result.push(left[il++]); //添加剩余项
+				}
+
+				while(ir < right.length) {
+					result.push(right[ir++]);
+				}
+
+				return result;
+			}
+
+			//快速排序
+			//划分过程
+			var partition = function(array, left, right) {
+
+				var pivot = array[Math.floor((right + left) / 2)], //拿到主元
+					i = left,
+					j = right;
+
+				while(i <= j) { //左右指针还没有交汇
+					//移动指针，直到找到左指针大于主元和右指针小于主元
+					//PS,while的语句倒着理解会好一点。下面的语句可以这样描述
+					//只要左指针比主元小，那就递增i————但也可以这么描述
+					//当左指针大于等于主元，就停止递增！这样理解会更简单
+					while(array[i] < pivot) {
+						i++;
+					}
+					while(array[j] > pivot) { //当发现右指针小于主元，就停止j递减
+						j--;
+					}
+
+					//很明显，如果上面过程有任何中断，下面条件就满足
+					if(i <= j) {
+						swapQuickSort(array, i , j); //交换zuo
+						i++;
+						j--;
+					}
+
+				}
+				return i; //
+			};
+
+			//交换函数，数组为参数
+			var swapQuickSort = function(array, index1, index2) {
+				var aux = array[index1];
+				array[index1] = array[index2];
+				array[index2] = aux;
+
+			};
+
+			//声明主方法来调用递归函数
+			var quick = function(array, left, right) {
+				var index;
+
+				if(array.length > 1) { //数组至少不止一个项
+					index = partition(array, left, right);
+
+					//递归调用
+					if(left < index - 1) {
+						quick(array, left, index - 1);
+					} 
+
+					if(index < right) {
+						quick(array, index, right);
+					}
+				}
+			}
+
+			this.quickSort = function() {
+				quick(array, 0, array.length - 1);
+			};
+
+
+
+			//顺序搜索
+			this.sequentialSearch = function(item) {
+				for (var i = 0; i < array.length; i++) {
+					if(item === array[i]) {
+						return i;
+					}
+				}
+				return -1; //如果无果，那就返回-1
+
+			};
+
+			//二分搜索
+			this.binarySearch = function(item) {
+				this.quickSort(); //先排序
+
+				var low = 0,
+					high = array.length - 1,
+					mid, element;
+
+				while(low <= high) {
+
+					mid = Math.floor((low + high) / 2);
+					element = array[mid]; //拿到中间值
+
+					if(item > element) {
+						low = mid + 1;
+					} else if(item < element) {
+						high = mid - 1;
+					} else {
+						return mid;
+					}
+				}
+				return -1;
+
+
+			}
+
+
+		};
+
+		//创建一个自动倒排序的函数，以便重用
+		function createNonSortedArray(size) {
+			var array = new ArrayList();
+			for(var i = size; i > 0; i --) {
+				array.insert(i);
+			}
+			return array;
+		}
+
+		var array = createNonSortedArray(5);
+		console.log(array.toString());
+
+		// array.bubbleSort();
+		array.modifiedBubbleSort();
+		console.log(array.toString());
+		showTitle('选择排序');
+		array.selectionSort();
+		console.log(array.toString());
+
+		showTitle('插入排序');
+		var insertArray = new ArrayList();
+		insertArray.insert(5);
+		insertArray.insert(4);
+		insertArray.insert(8);
+		insertArray.insert(2);
+		insertArray.insert(6);
+		console.log(insertArray.toString());
+		insertArray.insertionSort();
+		console.log(insertArray.toString());
+
+		showTitle('归并排序');
+		var mergeArray = new ArrayList();
+		mergeArray.insert(6);
+		mergeArray.insert(2);
+		mergeArray.insert(7);
+		mergeArray.insert(3);
+		mergeArray.insert(5);
+		mergeArray.insert(1);
+		mergeArray.insert(9);
+		console.log(mergeArray.toString());
+		mergeArray.mergeSort();
+		console.log(mergeArray.toString());
+
+
+		showTitle('快速排序');
+		var quickArray = new ArrayList();
+		quickArray.insert(6);
+		quickArray.insert(2);
+		quickArray.insert(7);
+		quickArray.insert(3);
+		quickArray.insert(5);
+		quickArray.insert(1);
+		quickArray.insert(9);
+
+		quickArray.quickSort();
+		console.log(quickArray.toString());
+
+
+
+		showTitle('顺序搜索');
+		console.log(quickArray.sequentialSearch(9));
+		showTitle('顺序搜索');
+		console.log(quickArray.binarySearch(4));
+		console.log(quickArray.binarySearch(6));
+
+
+		
+		
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

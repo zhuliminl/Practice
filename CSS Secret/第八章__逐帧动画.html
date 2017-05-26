@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>第八章__逐帧动画</title>
+	<style type="text/css">
+		.loading 
+		{
+			margin-top: 50%;
+			margin-left: 50%;
+			height: 200px;
+			width: 200px;
+			text-indent: 200%;
+			white-space: nowrap;
+			overflow: hidden;
+			background: url(img/img-motion.png);
+			background-position: 0 0;
+		
+			animation: motion 1s infinite steps(36);
+		}
+
+		@keyframes motion 
+		{
+			to {background-position: -7200px 0;}
+		}
+	</style>
+</head>
+<body>
+	<div class="loading">逐帧动画</div>
+</body>
+</html>

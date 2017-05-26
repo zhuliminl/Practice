@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>第一章__减少重复代码</title>
+	<style type="text/css">
+		
+		button {
+			padding: .3em .8em;
+			border: 1px solid #446d88;
+			background: #58a linear-gradient(#77a0bb, #58a);
+			border-radius: .2em;
+			box-shadow: 0 .05em .25em rgba(0,0,0,.5);
+			/*推荐使用带有透明度的阴影*/
+			color: #fff;
+			text-shadow: 0 -.05em .05em #335166;
+			font-size: 125%;
+			/* 这里使用百分比，其他地方使用em的话，就实现了按钮的自适应，如果需要修改的话只需要修改字体大小的百分比就好了。*/
+			line-height: 1.5;
+
+				
+		}
+
+		a {
+			color: inherit;
+		}
+
+		button .yes {
+			background-color: blue;
+		}
+		/*最后还是推荐使用rem作为单位更合适，毕竟它是关联于根元素，而使用em很可能会带来复杂的运算
+*/
+
+	</style>
+</head>
+<body>
+	<button class="yes">Yes</button>
+	<button class="no">NO</button>
+</body>
+</html>

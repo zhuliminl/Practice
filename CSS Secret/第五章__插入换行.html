@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>第五章__插入换行</title>
+	<style type="text/css">
+		body {
+			font-family: 'PingFang SC';
+		}
+
+		dl {
+			float: left;
+			width: 500px;
+			padding: 1em;
+			margin-right: 20px;
+			border: 1px solid #888;
+		}
+
+		.d1 dt,.d1 dd {
+			margin: 0;
+			display: inline;
+		}
+
+		/*下面是进阶用法*/
+		.d2 dt,.d2 dd {
+			display: inline;
+		}
+
+		.d2 dd {
+			margin: 0;
+			font-weight: bold;
+		}
+
+		.d2 dd:after {
+			content: '\A';
+			white-space: pre;
+		}/*嗯，到这里已经很不错了。但是它还是不够健壮！假如邮箱不止一个呢？因为我们需要再定义一个dd，这样就会多出一个换行*/
+
+
+		/*多个dd的解决方案*/
+		.d3 dt,.d3 dd {
+			display: inline;
+		}
+
+		.d3 dd {
+			margin: 0;
+			font-weight: bold;
+		}
+
+		.d3 dt:not(:first-child):before {/*这里使用的是 不是第一个子元素的选择器。也就是否定选择器。但是它不能解决多个dt的问题*/
+			content: '\A';
+			white-space: pre;
+		}/*不过这个是个很好的办法*/
+
+
+
+		/*下面用更合适的方法*/
+		.d4 dt,.d4 dd {
+			display: inline;
+		}
+
+		.d4 dd {
+			margin: 0;
+			font-weight: bold;
+		}
+
+		.d4 dd+dt:before { /*使用了相邻兄弟选择器，则会避免多个dt换行的问题！！！*/
+			content: '\A';
+			white-space: pre;
+		}
+
+		.d4 dd+dd:before {
+			content: ',';
+			font-weight: bold;
+			margin-right: .25em;
+			margin-left: -.2em; /*字体间距微调*/
+		}
+	</style>
+</head>
+<body>
+	<dl class="d1">
+		<dt>名字</dt>
+		<dd>朱黎明<br></dd>
+
+		<dt>邮箱</dt>
+		<dd>zhuliminl@gmail.com<br></dd>
+
+		<dt>地址</dt>
+		<dd>亲亲家园</dd>
+	</dl><!-- 这么写则万劫不复 -->
+
+	<dl class="d2">
+		<dt>名字</dt>
+		<dd>朱黎明</dd>
+
+		<dt>邮箱</dt>
+		<dd>zhuliminl@gmail.com</dd>
+		
+
+		<dt>地址</dt>
+		<dd>亲亲家园</dd>
+	</dl>
+
+	<dl class="d3">
+		<dt>名字</dt>
+		<dd>朱黎明</dd>
+
+		<dt>邮箱</dt>
+		<dd>zhuliminl@gmail.com</dd>
+		<dd>zhuliminl@live.com</dd>
+
+		<dt>地址</dt>
+		<dd>亲亲家园</dd>
+	</dl>
+
+	<dl class="d4">
+		<dt>名字</dt>
+		<dt>Name</dt>
+		<dd>朱黎明</dd>
+
+		<dt>邮箱</dt>
+		<dt>Email</dt>
+		<dd>zhuliminl@gmail.com</dd>
+		<dd>zhuliminl@live.com</dd>
+
+		<dt>地址</dt>
+		<dt>Location</dt>
+		<dd>亲亲家园</dd>
+	</dl>
+</body>
+</html>

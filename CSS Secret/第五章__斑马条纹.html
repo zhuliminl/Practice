@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>第五章__斑马条纹</title>
+	<style type="text/css">
+		.code {
+			padding: 1em;
+			width: 500px;
+			margin: 100px;
+			background: #111;
+			background-image: linear-gradient(#116 50%,transparent 0);
+			background-size: auto 3em;/*配合1.5的行高使用*/
+			line-height: 1.5;
+			font-family: monospace;
+			font-weight: normal;
+			font-size: 1.5em;/*好处是背景和字体大小相互关联*/
+			tab-size: 2;/*CSS的新缩进属性！*/
+			color: #fff;
+			-webkit-background-origin: content-box;
+			background-origin: content-box;/*绑定到内容盒子模式*/
+		}
+	</style>
+</head>
+<body>
+	<pre class="code"><code>while (true) {
+		var d = new Date();
+		if (d.getDate()==1 &amp;&amp;
+		    d.getMonth()==3) {
+			alert("TROLOLOL");
+		}
+	}</code></pre>
+</body>
+</html>

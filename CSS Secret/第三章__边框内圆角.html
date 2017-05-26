@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>第三章__边框内圆角</title>
+	<style type="text/css">
+		body {
+			font-family: PingFang SC;
+			font-size: 13.5px;
+		}
+		.box1 {
+			width: 300px;
+			background-color: #444;
+			color: #222;
+			padding: 1em;
+		}
+
+		.box1 > div {
+			background-color: #fff;
+			padding: 1em;
+			border-radius: 10px;
+		}/*这是最常见的写法，但是会增加额外的标签*/
+
+		.box2 {
+			width: 200px;
+			margin-left: 50px;
+			margin-top: 50px;
+			padding: 1em;
+			background-color: #444;
+			box-shadow: 0 0 0 7px red;
+			border-radius: 15px;
+			outline: 7px solid blue;
+		}
+	</style>
+</head>
+<body>
+	<div class="box1"><div>这里里面是内容哈这里里面是内容哈这里里面是内容哈这里里面是内容哈这里里面是内容哈这里里面是内容哈</div></div>
+	<div class="box2"><div>这里里面是内容哈这里里面是内容哈这里里面是内容哈这里里面是内容哈这里里面是内容哈这里里面是内容哈</div></div>
+</body>
+</html>

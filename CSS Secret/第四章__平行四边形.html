@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>第四章__平行四边形</title>
+	<style type="text/css">
+		button {
+			margin: 50px;
+			font-family: 'PingFang SC';
+			font-size: 15px;
+			line-height: 1.5;
+		}
+		.button1 {
+			padding: .3em 3em;
+			background: hsla(120, 40%, 60%, 1);
+			border: none;
+			line-height: 1.5;
+			color: #fff;
+			border-radius: 4px;
+			transform: skewX(-45deg);
+		}
+		.button1 > div {
+			transform: skewX(45deg);
+		}
+
+
+		.button2 {
+			position: relative;
+			padding: .5em 2em;
+			border: none;
+			color: #fff;
+			background: transparent;/*还得设置宿主元素的背景为透明才好办*/	
+		}
+
+		.button2:before {
+			position: absolute;
+			content: '';
+			top: 0;left: 0;bottom: 0;right: 0;
+			background: #58a;
+			z-index: -1;
+		}
+
+	</style>
+</head>
+<body>
+	<button class="button1">
+		<div>YSE</div>
+	</button>
+	<button class="button2">NO</button>
+</body>
+</html>

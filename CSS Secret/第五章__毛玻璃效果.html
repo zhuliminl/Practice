@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>第五章__毛玻璃效果</title>
+	<style type="text/css">
+		main {
+			width: 500px;
+			height: 1000px;
+			position: relative;
+			overflow: hidden;
+			z-index: 0;/*关键是这里的层级不好掌握啊！！！*/
+		}
+
+		main,
+		p:before {
+			background: url(img/d.png) no-repeat fixed;
+		}
+
+		p {
+			position: relative;
+			margin: 3em;
+			padding: 1em;
+			font-family: "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans", "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
+			font-size: 18px;
+			line-height: 1.8;
+			font-weight: normal;
+			letter-spacing: 1em;
+			color: #fff;
+			overflow: hidden;/*这里一招直接界定了边缘是否平滑*/
+			/*background: hsla(0,0%,100%,.3);*/
+
+			/*height: 400px;*/
+		}
+
+		p:before {
+			content: '';
+			position: absolute;
+			top: 0;left: 0;right: 0;bottom: 0;/*撑满宿主元素*/
+			-webkit-filter: blur(20px);
+			filter: blur(20px);
+			margin: -3em;/*扩散模糊边缘*/
+			z-index: -1;/*躲到宿主元素后面去
+*/
+
+		}
+	</style>
+</head>
+<body>
+	<main>
+		
+			<p>Pellentesque </p>
+		
+	</main>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>第四章__简单的饼状图</title>
+	<style type="text/css">
+		.pie {
+			margin: 100px;
+			width: 300px;
+			height: 300px;
+			border-radius: 50%;
+			background: #fab;
+			background-image: linear-gradient(to right, transparent 50%, #333 0);
+		}
+
+		.pie:before {
+			content: '';
+			display: block;
+			background-color: inherit;/*注意这里如果用继承的话，可不能直接写背景。因为渐变也会被继承过来*/
+			height: 100%;
+			margin-left: 50%;
+			border-radius: 0 100% 100% 0 / 50%;
+			transform-origin: left;
+			transform: rotate(60deg);
+		}
+
+		.pie1 {
+			margin: 100px;
+			width: 300px;
+			height: 300px;
+			border-radius: 50%;
+			background: #fab;
+			background-image: linear-gradient(to right, transparent 50%, #333 0);
+		}
+
+		.pie1:before {
+			content: '';
+			display: block;
+			background-color: #444;/*这里的颜色做出改变，也就能够弥补上面的缺陷，做出较大角度的饼*/
+			height: 100%;
+			margin-left: 50%;
+			border-radius: 0 100% 100% 0 / 50%;
+			transform-origin: left;
+			transform: rotate(60deg);
+		}
+
+		/*下面制作的是动画	*/
+		@keyframes spin {
+			to {
+				transform: rotate(180deg);
+			}
+		}
+
+		@keyframes bg {
+			50% {
+				background-color: #333;
+			}
+		}
+
+
+		.pie2 {
+			margin: 100px;
+			width: 300px;
+			height: 300px;
+			border-radius: 50%;
+			background: #fab;
+			background-image: linear-gradient(to right, transparent 50%, #333 0);
+			font-family: garamond;
+			font-size: 2em;
+
+
+		}
+
+		.pie2:before {
+			content: '';
+			display: block;
+			background-color: inherit;/*注意这里如果用继承的话，可不能直接写背景。因为渐变也会被继承过来*/
+			height: 100%;
+			margin-left: 50%;
+			border-radius: 0 100% 100% 0 / 50%;
+			transform-origin: left;
+			animation: spin 50s linear infinite, bg 100s step-end infinite;
+			animation-play-state: paused;
+			animation-delay: inherit;
+			/*懂了，这几个数字的搭配都是不可或缺的。想理解还得慢慢体会。我现在倒是懂了，其实是两个动画拼接起来的。真的好巧妙！！！*/
+		}
+	</style>
+</head>
+<body>
+	<div class="pie"></div>
+	<div class="pie1"></div>
+	<div class="pie2" style="animation-delay: -60s">60%</div><!-- 哈哈.这样写真的能写出来诶。太有意思了 -->
+	<div class="pie2" style="animation-delay: -90s">90%</div>
+</body>
+</html>

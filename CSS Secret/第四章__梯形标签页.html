@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>第四章__梯形标签页</title>
+	<style type="text/css">
+		body {
+			padding: 40px;
+			font: 130%/2 Frutiger LT Std, sans-serif;
+		}
+
+		nav {
+			position: relative;
+			z-index: 1;
+			padding-left: 1em;
+		}
+
+		nav > a {
+			position: relative;
+			display: inline-block;
+			padding: .3em 1em 0;
+			color: inherit;
+			text-decoration: none;
+			margin: 0 -.3em;
+		} 
+		main {
+			display: block;
+			margin-bottom: 1em;
+			background: #eee;
+			padding: 1em;
+			border-radius: .15em;
+		}
+
+		nav > a::before,
+		main {
+			border: .1em solid rgba(0,0,0,.4);
+		}
+		
+		nav > a:before {
+			content: '';
+			position: absolute;
+			top: 0;left: 0;right: 0;bottom: 0;
+			z-index: -1;
+			background-color: #ccc;
+			border: 2px solid #999;
+			border-bottom: none;
+			border-radius: .5em .5em 0 0;
+			box-shadow: 0 .15em #fff inset;
+			transform: perspective(.8em) rotateX(5deg);/*注意这里 3D 旋转的轴的理解，一直都是 X 轴代表透视。你必须有个清晰的认知概念，就像建模里面的那种*/
+			background-origin: bottom;/*调整基准点的认知*/
+		}
+
+
+	</style>
+</head>
+<body>
+	<nav>
+		<a href="#">Home</a>
+		<a href="#" class="selected">Projects</a>
+		<a href="#">About</a>
+	</nav>
+	<main>
+		Content area
+	</main>
+</body>
+</html>

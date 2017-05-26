@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>第三章__条纹背景</title>
+	<style type="text/css">
+		div {
+			float: left;
+			margin: 30px;
+		}
+		.box1 {
+			width: 500px;
+			height: 400px;
+			background: linear-gradient(hsla(0, 100%, 40%, 1) 60%, #08004a 0) no-repeat;
+			background-size: 500px 100px;
+		}
+
+		.box2 {
+			width: 500px;
+			height: 400px;
+			background: linear-gradient(to right, hsla(0, 100%, 40%, 1) 60%, #08004a 0) no-repeat;
+			background-size: 500px 100px;
+		}
+
+		.box3 {
+			width: 500px;
+			height: 400px;
+			background: linear-gradient(45deg,
+										#fb3 25%, 
+										#58a 0, 
+										#58a 50%,
+										#fb3 0, 
+										#fb3 75%, 
+										#58a 0);
+			background-size: 60px 60px;
+		}
+
+		.box4 {
+			width: 700px;
+			height: 400px;
+			background: repeating-linear-gradient(30deg, 
+											      #58a, 
+												  #58a 20px, 
+												  #fab 0, 
+												  #fab 40px);
+
+		}/*最完美的方案！！！*/
+
+		.box5 {
+			width: 700px;
+			height: 400px;
+			background: #fab;
+			background-image: repeating-linear-gradient(45deg,
+														hsla(0, 0%, 100%, .1),  
+														hsla(0, 0%, 100%, .1) 15px, 
+														transparent 0, 
+														transparent 30px );
+
+		}/*透明的条纹背景*/
+	</style>
+</head>
+<body>
+	<div class="box1"></div>
+
+	<div class="box2"></div>
+	<div class="box3"></div>
+	<div class="box4"></div>
+	<div class="box5"></div>
+
+</body>
+</html>

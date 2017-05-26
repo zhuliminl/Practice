@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>6.1</title>
+</head>
+<body>
+	<p>创建一个集合</p>
+
+	<script type="text/javascript">
+
+		function showTitile(title) {
+			console.log('\n');
+			console.log(title)
+		}
+
+
+		function Set() {
+			var items = {};
+
+		this.has = function(value) {
+			return value in items; //使用in操作符检查对象是否含有值，返回布尔值
+			//return items.hasOwnProperty(value);这样更好
+		};
+
+		this.add = function(value) {
+			if(!this.has(value)) {
+				//没有这个值则添加它，并返回true
+ 		  		items[value] = value; 
+ 		  		return true;
+			}	
+			return false;
+		};
+
+		this.remove = function(value) {	
+			if(this.has(value)) {
+				delete items[value]; //删除这个值
+				return true;
+			} 
+			return false;
+		};
+
+		this.clear = function() {
+			items = {}; //移除直接使用空白对象
+		};
+
+		this.size = function() {
+			return Object.keys(items).length; //Object类的内建函数
+		};
+
+		this.sizeLegacy = function() {
+			var count = 0;
+			for(var prop in items) {
+				if(items.hasOwnProperty(prop)) {
+					++count;
+				}
+			}
+			return count;
+		}
+
+		this.values = function() { //返回集合的所有，以数组的形式
+			return Object.keys(items);
+		};
+
+		this.valuesLegacy = function() {
+			var keys = [];
+			for(var item in items) {
+				keys.push(item);
+			}
+			return keys;
+		};
+		//并集
+		this.union = function(otherSet) {
+			var unionSet = new Set();
+
+			var values = this.values();
+			for (var i = 0; i < values.length; i++) {
+				unionSet.add(values[i]); //全都添加到新的集合 
+			}
+
+			values = otherSet.values();
+			for (var i = 0; i < values.length; i++) {
+				unionSet.add(values[i]); //再次添加
+			}
+
+			return unionSet;
+		};
+		//交集。交集思路，先创建一个新的储存对象，然后判断另一个集合是否含有被比较集合的值，有就添加
+		this.intersection = function(otherSet) {
+			var intersectionSet = new Set();
+			var values = this.values();
+			for (var i = 0; i < values.length; i++) {
+				if(otherSet.has(values[i])) { //使用已经创建过的has方法
+					intersectionSet.add(values[i]);
+				}
+			}
+			return intersectionSet;
+		};
+		//差集
+		this.difference = function(otherSet) {
+			var differenceSet = new Set();
+			var values = this.values();
+			for (var i = 0; i < values.length; i++) {
+				if(!otherSet.has(values[i])) {
+					differenceSet.add(values[i]);
+				}
+			}
+			return differenceSet;
+		};
+		//子集
+		this.subSet = function(otherSet) {
+			if(otherSet.size() < this.size()) {
+				return false;
+			} else {
+				var values = this.values();
+				for (var i = 0; i < values.length; i++) {
+					if(!otherSet.has(values[i])) {
+						return false;
+					}
+				}
+				return true;
+			}
+		}
+		}
+
+		showTitile('创建一个集合');
+		var set = new Set();
+		set.add('w');
+		set.add('u');
+		set.add('t');
+		set.add('h');
+		set.clear();
+		set.add('e');
+		set.add('r')
+		set.add('xiaoshitou')
+		set.remove('xiaoshitou');
+		console.table(set);
+		console.log(set.has('e'));	
+		console.log(set.size());
+		console.log(set.sizeLegacy());	
+		console.log(set.values());
+		console.log(set.valuesLegacy());
+
+
+		showTitile('并集');
+		var setA = new Set();
+		setA.add('郝凤');
+		setA.add('啊');
+		setA.add('好');
+
+		var setB = new Set();
+		setB.add('可爱');
+		setB.add('啊');
+
+		console.log(setA.values());
+		console.log(setB.values());
+		var unionAB = setA.union(setB);
+		console.log(unionAB.values());
+		var intersectionAB = setA.intersection(setB);
+		console.log(intersectionAB.values());
+
+
+		showTitile('差集');
+		var differenceAB = setA.difference(setB);
+		console.log(differenceAB.values());
+
+		showTitile('子集');
+		console.log(setA.subSet(setB));
+		setA.add('可爱');
+		console.log(setB.subSet(setA));
+		
+
+
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

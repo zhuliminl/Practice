@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>第五章__单侧投影</title>
+	<style type="text/css">
+
+		div {
+			margin: 50px;
+			width: 200px;
+			height: 100px;
+			float: left;
+			background: #fab;
+		}
+
+		.box1 {
+			box-shadow: 0 9px 12px -5px #222;/*制作单侧投影*/
+		}
+
+		.box2 {
+			box-shadow: 3px 3px 6px -3px #111;/*临边的投影*/
+		}
+
+		.box3 {
+			box-shadow: 5px 0 10px -5px #111, -5px 0 10px -5px #111;/*制作双侧投影*/
+		}
+	</style>
+</head>
+<body>
+	<div class="box1"></div>
+	<div class="box2"></div>
+	<div class="box3"></div>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>第四章__菱形的图片</title>
+	<style type="text/css">
+		div {
+			margin: 40px;
+		}
+		.picture {
+			width: 100px;
+			height: 100px;
+			transform: rotate(45deg);
+			overflow: hidden;
+
+		}
+
+		.picture > img {
+			width: 100%;
+			transform: rotate(-45deg) scale(3);
+			overflow: hidden;
+		}
+
+		.pic2 {
+			clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+			transition: 1s clip-path;
+		}
+		.pic2:hover {
+			clip-path: polygon(0 0, 100% 0,
+			100% 100%, 0 100%)
+		}
+	</style>
+</head>
+<body>
+	<div class="picture">
+		<img src="img/A.jpg" alt="">
+	</div>
+	<div class="picture2">
+		<img src="img/B.png" alt="" class="pic2">
+	</div>
+</body>
+</html>

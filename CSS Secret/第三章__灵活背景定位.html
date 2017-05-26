@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>第三章__灵活背景定位</title>
+	<style type="text/css">
+		.box1 {
+			background: url(img/position.svg) no-repeat bottom right #58a;
+			background-position: right 0em bottom 0em;
+			width: 900px;
+			height: 500px;
+			padding: 2em;
+			color: #fff;
+			background-color: #777;
+		}
+
+		.box2 {
+			background: url(img/position.svg) no-repeat bottom right #58a;
+			background-position: right 0em bottom 0em;
+			background-origin: content-box;
+			width: 900px;
+			height: 500px;
+			padding: 2em;
+			color: #fff;
+			
+		}
+		.box3 {
+			background: url(img/position.svg) no-repeat bottom right #888;
+			background-position: calc(100% - 10px) calc(100% - 10px);
+			width: 900px;
+			height: 500px;
+			padding: 2em;
+			color: #fff;
+			
+		}
+	</style>
+</head>
+<body>
+	<div class="box1">哈哈哈啊哈哈哈</div>
+	<div class="box2">哈哈哈啊哈哈哈</div>
+	<div class="box3">哈哈哈啊哈哈哈</div>
+</body>
+</html>

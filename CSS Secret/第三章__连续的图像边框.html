@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>第三章__连续的图像边框</title>
+	<style type="text/css">
+		div {
+			width: 500px;
+			height: 300px;
+			float: left;
+			font-family: 'PingFing SC';
+			margin: 50px;
+		}
+		.box1 {
+			padding: 1em;
+			border: 3em solid transparent;/*边框透明，给出背景图片透出来的位置*/
+			background-image: linear-gradient(#fff, #fff), url(img/A.jpg);/*做两层*/
+			background-size: cover;/*贴合容器*/
+			background-clip: padding-box, border-box;/*先后顺序不能迷糊*/
+			background-origin: border-box;/*改变背景图片的位置取决*/
+		}
+
+		.box2 {
+			width: 800px;
+			padding: 2em;
+			border: 16px solid transparent;
+			border-image: 16 repeating-linear-gradient(-45deg,
+							red 0, red 1em,
+							transparent 0, transparent 2em,
+							#58a 0, #58a 3em,
+							transparent 0, transparent 4em);
+									}
+
+		.box3 {
+			padding-top: 1em;
+			border-top: 3px solid transparent;
+			border-image: 100% 0 0 linear-gradient(90deg, currentColor 3em, transparent 0);
+			color: #777;
+
+		}
+	</style>
+</head>
+<body>
+	<div class="box1"><p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quamutate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p></div>
+	<div class="box2"><p>Pellenteutate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p></div>
+	<div class="box3"><p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quamutate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p></div>
+</body>
+</html>

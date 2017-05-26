@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>MyPubSub</title>
+</head>
+<body>
+	<script type="text/javascript">
+		var events = {
+			events : {}, // 首先创建一个对象用来存放。
+			// 绑定事件
+			ready: function(eName, fn) { // 参数： 事件名， 执行函数
+				this.events[eName] = this.events[eName] || [];
+				this.events[eName].push(fn);
+			},
+			// 取消事件
+			cancel: function(eName, fn) {
+				if(this.events[eName]) {
+					for (var i = 0; i < this.events[eName].length; i++) {
+						if(this.events[eName][i] === fn) { // 如果找到符合 fn 的事件
+							this.events[eName].splice(i, 1); // 那就删除并退出
+							console.log('Event is gone!!!') // 事件没了哈哈
+							break;
+						}
+					}
+				}
+			},
+			// 启动事件
+			go: function(eName, data) { // 参数： 事件名， 执行函数的参数——也就是说绑定事件里的执行函数会在这里配上参数来执行
+				this.events[eName].forEach(function(fn) {
+					fn(data);
+				})
+
+			}
+		};
+
+
+		// 测试
+		var addContents = function(contents) {
+			var div = document.createElement('div');
+			div.innerHTML = contents;
+			document.body.appendChild(div);
+
+		};
+		addContents('<li>list</li>');
+
+		events.ready("addSomeThing", addContents);
+		// events.cancel("addSomeThing", addContents);
+		events.go("addSomeThing", '<h1>Lets Dance</h1>'); // 发动事件了
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>第四章__切角效果</title>
+	<style type="text/css">
+		p {
+			width: 500px;
+			padding: 2em;
+			background: #fab;
+			background: linear-gradient(-45deg, transparent 20px, #fab 0);
+		}
+
+		.p2 {
+			width: 500px;
+			padding: 2em;
+			background: linear-gradient(135deg, transparent 15px, #58a 0)
+						top left,
+						linear-gradient(-135deg, transparent 15px, #58a 0)
+						top right,
+						linear-gradient(-45deg, transparent 15px, #58a 0)
+						bottom right,
+						linear-gradient(45deg, transparent 15px, #58a 0)
+						bottom left;
+			background-size: 50% 50%;
+			background-repeat: no-repeat;/*天呐！！！顺序不能碰！！！*/
+		}
+
+		.p3 {
+			margin-top: 40px;
+			width: 500px;
+			padding: 2em;
+			background: #58a;
+			background:
+			radial-gradient(circle at top left,
+			transparent 15px, #58a 0) top left,
+			radial-gradient(circle at top right,
+			transparent 15px, #58a 0) top right,
+			radial-gradient(circle at bottom right,
+			transparent 15px, #58a 0) bottom right,
+			radial-gradient(circle at bottom left,
+			transparent 15px, #58a 0) bottom left;
+			background-size: 50% 50%;
+			background-repeat: no-repeat;/*好吧。这个我真的懒得练习了，知道就好。直接放到我的库里面就好了*/
+		}
+        
+        .p4 {
+        	width: 400px;
+        	margin: 50px;
+        	padding: 2em;
+        	border: 20px solid #fab;
+        	border-image: 1 url('data:image/svg+xml,\
+	                      <svg xmlns="http://www.w3.org/2000/svg" width="3" height="3" fill="%2358a">\
+	                      <polygon points="0,1 1,0 2,0 3,1 3,2 2,3 1,3 0,2" />\
+	                      </svg>');/*哈哈，svg只有以后有时间再研究了*/
+        	background: #fab;
+        	background-clip: padding-box;
+        }
+        .p5 {
+        	width: 400px;
+        	margin: 50px;
+        	padding: 2em;
+        	background: #58a;
+        	clip-path: polygon(
+        		20px 0, calc(100% - 20px) 0, 100% 20px, 
+        		100% calc(100% - 20px), calc(100% - 20px) 100%,  
+        		20px 100%, 0 calc(100% - 20px), 0 20px
+        		);
+        }
+	</style>
+</head>
+<body>
+	<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
+	<div class="p2">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</div>
+	<div class="p3">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</div>
+	<div class="p4">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</div>
+	<div class="p5">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</div>
+</body>
+</html>

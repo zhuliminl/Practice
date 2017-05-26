@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>第五章__染色效果</title>
+	<style type="text/css">
+		.p1 {
+
+			-webkit-filter: sepia(1) saturate(1) hue-rotate(200deg);/*第一次感觉需要加前缀*/
+
+			transition: .9s -webkit-filter;
+		}
+
+		figure:hover,
+		figure:focus {
+			-webkit-filter: none;
+		}
+
+		a {
+			display: inline-block;
+			background: #fab;
+		}
+		
+		a img {
+			mix-blend-mode: luminosity
+		}
+	</style>
+</head>
+<body>
+	<figure class="p1">
+		<img src="img/c.png">
+	</figure>
+	<a href="">
+		<img src="img/c.png">
+	</a>
+</body>
+</html>
