@@ -39,8 +39,7 @@ var count = (function() {
 
 	// 绑定事件 
 	events.ready('peopleChange', countPeople);
-	events.ready('test', test);
-	function test() {console.log('test')};
+
 	// render
 	render();
 	function render() {
@@ -137,24 +136,6 @@ var people = (function() {
 		deletePerson: deletePerson  // 暴露出来的接口
 	}
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

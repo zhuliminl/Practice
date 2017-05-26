@@ -1332,60 +1332,60 @@
 
 
 
-		// // 注意，并不存在父类！！！只有对象，只有对象，只有对象
-		// var Widget = {
+		// 注意，并不存在父类！！！只有对象，只有对象，只有对象
+		var Widget = {
 
-		// 	init : function(width, height) { //初始化
+			init : function(width, height) { //初始化
 
-		// 		this.width = width || 50;
-		// 		this.height = height || 50;
-		// 		this.$elem = null;
-		// 	},
+				this.width = width || 50;
+				this.height = height || 50;
+				this.$elem = null;
+			},
 
-		// 	insert : function($where) { // 定义插入
+			insert : function($where) { // 定义插入
 
-		// 		if(this.$elem) {
-		// 			this.$elem.css({
-		// 				width : this.width + "px",
-		// 				height : this.height + "px"
-		// 			}).appendTo($where);
-		// 		}
-		// 	}
-		// };
+				if(this.$elem) {
+					this.$elem.css({
+						width : this.width + "px",
+						height : this.height + "px"
+					}).appendTo($where);
+				}
+			}
+		};
 
-		// var Button = Object.create(Widget); // 关联 Widget
+		var Button = Object.create(Widget); // 关联 Widget
 
-		// Button.setup = function(width, height, label) { // 包装 API ,在内部委托
-		// 	// 委托调用
-		// 	this.init(width, height); // 就在这个委托 Widget 对象的 init
+		Button.setup = function(width, height, label) { // 包装 API ,在内部委托
+			// 委托调用
+			this.init(width, height); // 就在这个委托 Widget 对象的 init
 
-		// 	this.label = label || "Default"; // 自己单另的功能 
-		// 	this.$elem = $("<button>").text(this.label);
-		// };
+			this.label = label || "Default"; // 自己单另的功能 
+			this.$elem = $("<button>").text(this.label);
+		};
 
-		// Button.build = function($where) { // 包装另外一个
-		// 	// 委托调用
-		// 	this.insert($where);
-		// 	this.$elem.click(this.onClick.bind(this));
-		// };
+		Button.build = function($where) { // 包装另外一个
+			// 委托调用
+			this.insert($where);
+			this.$elem.click(this.onClick.bind(this));
+		};
 
-		// Button.onClick = function(evt) {
-		// 	console.log("Button " + this.label + " is Clicked!!! ");
-		// };
+		Button.onClick = function(evt) {
+			console.log("Button " + this.label + " is Clicked!!! ");
+		};
 
-		// $(document).ready(function() {
+		$(document).ready(function() {
 
-		// 	var $body = $(document.body);
+			var $body = $(document.body);
 
-		// 	var btn1 = Object.create(Button); // 注意这里新建实例也是通过关联对象
-		// 	btn1.setup(124, 76, 'Hello'); 
+			var btn1 = Object.create(Button); // 注意这里新建实例也是通过关联对象
+			btn1.setup(124, 76, 'Hello'); 
 
-		// 	var btn2 = Object.create(Button); // 注意这里新建实例也是通过关联对象
-		// 	btn2.setup(124, 66, 'World');
+			var btn2 = Object.create(Button); // 注意这里新建实例也是通过关联对象
+			btn2.setup(124, 66, 'World');
 
-		// 	btn1.build($body);
-		// 	btn2.build($body);
-		// })
+			btn1.build($body);
+			btn2.build($body);
+		})
 
 
 
