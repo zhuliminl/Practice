@@ -3,7 +3,7 @@
 
 ## 2017-5-27
 
-. [学习了下 JavaScript 里面的浅拷贝和深拷贝](https://github.com/zhuliminl/Practice-EveryDay/blob/master/DOM%20%26%20JavaScript/%E6%8B%B7%E8%B4%9D.html)
+* [JavaScript 里面的浅拷贝和深拷贝](https://github.com/zhuliminl/Practice-EveryDay/blob/master/DOM%20%26%20JavaScript/%E6%8B%B7%E8%B4%9D.html)
 
 
 
