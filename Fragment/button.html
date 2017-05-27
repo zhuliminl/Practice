@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	
+	<title>button</title>
+	<style type="text/css">
+		body {
+			padding: 40px;
+			font:14px/1.5 "PingFang SC","微软雅黑","Microsoft YaHei",Helvetica,"Helvetica Neue",Tahoma,Arial,sans-serif;
+		}
+
+		a {
+			text-decoration: none;
+			color: inherit;
+		}
+
+		.select,
+		.new {
+			margin-top: 30px;
+		}
+
+		input:focus {
+			outline: none;
+			border: 1px solid #111;
+		}
+		
+		input[type='text'] {
+			/*对输入栏设定内边距？*/
+			padding: 9px 20px;
+			/*height: 10px;*/
+			/*给输入栏设定固定的高度感觉不是很合理。*/
+			font-size: 12px;
+			color: #888;
+			padding-left: 2px;
+			border: 1px solid #ddd;
+			border-radius: 4px;
+		}
+
+
+		input[type='submit'] {
+			padding: 9px 20px;
+			font-size: 12px;
+			color: #555;
+			background-color: #ddd;
+			border: 0;
+			border-radius: 4px;
+			/*去掉默认的样式*/
+
+		}
+		/*select 的默认样式怎么自定义？*/
+		#fake-select {
+			/*appearance: none;*/
+			position: relative;
+			padding: 5px 10px;
+			background-color: #ddd;
+			height: 20px;
+			width: 60px;
+
+		}
+		#fake-select select {
+			opacity: 0;
+			position: absolute;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			/*width: 100%;*/
+		}
+		#fake-select span {
+			margin-left: -10px;
+			padding: 5px 10px;
+		}
+
+		#fake-select select option {
+			background-color: red;
+			appearance: none;
+		}
+		
+	</style>
+</head>
+<body>
+	<form action="login.php" method="post">
+
+		<label for="name">NAME:</label> <input type="text" placeholder="" id="name">
+		<input type="submit" name="">
+		<!-- 当点击 label 焦点是绑定的 input -->
+		<div class="select">
+			<!-- 自定义下拉样式 -->
+			<!-- 通过父容器包裹，隐藏下拉选框，并扩充四角，保持可访问性，再利用 js 重新调回所选项到辅助元素 span 去显示-->
+			<div id="fake-select" >
+				<!-- <span class="cur-select">请选择</span> -->
+				<select >
+					<option>sual</option>
+					<option>quinn</option>
+					<option>ben</option>
+					<option>carrie</option>
+				</select>
+				<span>请选择</span>
+			</div>
+		</div>
+		<!-- 一些不常用的 -->
+		<div class="new">
+			<input type="range" name="sual">
+			<input type="radio" name="sual">
+			<input type="reset" name="sual">
+			<input type="tel" name="sual">
+			<input type="time" name="sual">
+			<input type="url" name="sual">
+		</div>
+	</form>
+	<script type="text/javascript">
+		var fakeSelect = document.getElementById('fake-select'); // 缓存假的下拉框
+		window.onload = function() {
+			var select = fakeSelect.getElementsByTagName('select')[0];
+			var curSelect = fakeSelect.getElementsByTagName('span')[0];
+
+			select.addEventListener('change', function() { // 下拉框的 change 事件
+
+				var selectedText = select.options[select.selectedIndex].text; // 配合 select 的一些属性，取到点击选择的内容，传给 span
+				curSelect.innerHTML = selectedText;
+				console.log('a');
+			})
+		}
+		
+
+
+
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
