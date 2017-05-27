@@ -4,13 +4,16 @@
 
 来自《CSS 揭秘》一书中的各种 CSS 技巧练习。作者的渐进式行文方式，教我们在保证设计原则的同时怎样逐步抵达抵达一个较为完美的方案。
 
-### [Data & Algorithms](https://github.com/zhuliminl/Practice/tree/master/DOM%20%26%20JavaScript)
-
-来自《JavaScript 数据结构和算法》一书中的代码练习。好的程序员担心数据和算法。我觉得很对。
-
 ### [DOM & JavaScript](https://github.com/zhuliminl/Practice/tree/master/DOM%20%26%20JavaScript)
 
 DOM 和原生 JavaScript 的一些练习。会操作原生的东西很了不起。
+
+
+### [Data & Algorithms](https://github.com/zhuliminl/Practice/tree/master/Data%20%26%20Algorithms)
+
+来自《JavaScript 数据结构和算法》一书中的代码练习。好的程序员担心数据和算法。我觉得很对。
+
+
 
 ### [Fragment](https://github.com/zhuliminl/Practice/tree/master/Fragment)
 
