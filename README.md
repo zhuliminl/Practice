@@ -2,7 +2,7 @@
 
 ### [CSS Secrets](https://github.com/zhuliminl/Practice/tree/master/CSS%20Secrets)
 
-来自《CSS 揭秘》一书中的各种 CSS 技巧练习。渐进式的行文，教别人在保证设计原则的同时最后逐步抵达抵达一个较为完美的方案。
+来自《CSS 揭秘》一书中的各种 CSS 技巧练习。渐进式的行文，教别人在保证设计原则的同时逐步抵达一个较为完美的方案。
 
 ### [DOM & JavaScript](https://github.com/zhuliminl/Practice/tree/master/DOM%20%26%20JavaScript)
 
