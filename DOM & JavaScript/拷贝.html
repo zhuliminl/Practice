@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>几种拷贝</title>
+</head>
+<body>
+	<script type="text/javascript">
+
+	// 浅拷贝	
+	var saul = {
+		name: "Saul",
+		age: 42,
+		job: ['teacher', 'actor', 'doctor','CIA'],
+		copy: function() {
+			var temp = {};
+			for(var keys in this) {
+				temp[keys] = this[keys];
+			}
+			return temp;
+		}
+	};
+	console.log(saul);
+
+	var newSaul = saul.copy();
+	console.log(newSaul);
+	console.log(saul.job === newSaul.job); // true 注意这种方法得到的引用位置相同,意味着修改一个对象的的值同时会修改其他对象的值
+	saul.job[0] = 'singer';
+	console.log(newSaul.job[0]); // singer
+
+
+	// 深拷贝简单实现
+	function clone(a, b) {
+		for(var keys in b) {
+			if(typeof b[keys] === 'object') { // 如果 b 中有引用类型
+			 	a[keys] = { }; // 则给 a 初始化一个空对象
+				clone(a[keys], b[keys]); // 递归调用一次
+			} else {
+				a[keys] = b[keys];
+			}
+		}
+	}
+
+	var quinn = {};
+	clone(quinn, saul);
+	saul.job[0] = 'student';
+	console.log(quinn.job[0]); // 还是 singer
+	console.log(quinn); // 但是数组被转化为了对象
+
+
+	// 数组中的深拷贝
+	var array1 = ['saul', 'quinn', 'steven', 'demon'];
+	var array2 = ['carrie', 'elena', 'priscilla'];
+	var foo = array1.concat(0);
+	console.log(foo);
+	console.log(foo === array1); // false
+
+
+	// JSON 的方法的深拷贝实现（不能拷贝函数和正则表达式，且会丢失对象的构造函数）
+	var demon = {
+		name: 'Demon',
+		age: 32,
+		child: {
+			saul: 'Saul',
+			ben: 'Ben'
+		},
+		fn: function() {
+			console.log('Hello World');
+		}
+
+	};
+
+	var newDemon = JSON.stringify(demon);
+	console.log(demon); // 这是对象
+	console.log(newDemon); // 这是字符串
+	var newDemon = JSON.parse(newDemon);
+	console.log(newDemon); // 又变回了对象
+	console.log(demon === newDemon); // false 全新的
+	
+
+	
+
+	
+
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
