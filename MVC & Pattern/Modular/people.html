@@ -1,58 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>people</title>
-	<link rel="stylesheet" type="text/css" href="css/people.css">
+    <meta charset="UTF-8">
+    <title>people</title>
+    <link rel="stylesheet" type="text/css" href="css/people.css">
 </head>
+
 <body>
-	<!-- 标题 -->
-	<div class="hero-unit">
-		<h1>Modular<br>JavaScript</h1>
-	</div>
-	<!-- 标题结束 -->
-
-	<div id="peopleModule">
-		<h1>people</h1>
-
-		<div id="counts">
-			<!-- 纪录数量模版开始 -->
-			<script type="text/template" id="count-template">
-				<p>纪录了<span>{{counts}}</span>人</p>
-				
-			</script>
-			<!-- 模版结束 -->
-		</div>
-
-		<input type="text" placeholder="name">
-		<button id="addPerson">add</button>
-		<ul id="people">
-			<!-- 模版开始 -->
-			<script type="text/template" id="people-template">
-				{{#people}}
-					<li>
-						<!-- 带点的语法，可以循环一个字符串数组，并指向当前项 -->
-						<span>{{.}}</span>
-						<i class="del">X</i>
-					</li>
-				{{/people}}
-			</script>
-			<!-- 模版结束 -->
-		</ul>
-	</div>
-	<!-- 提示弹窗 -->
-	<div id="warning">
-		<p>输入为空！</p>
-		<button >关闭</button>
-	</div>
-<!-- 引入 jQuery 文件 -->
-<script type="text/javascript" src='../libs/jquery-1.8.3.min.js'></script>
-<!-- 引入模版 js -->
-<script type="text/javascript" src='../libs/mustache.js'></script>
-
-
-<!-- 很挫很挫的写法 -->
-<!-- <script type="text/javascript">
+    <!-- 标题 -->
+    <div class="hero-unit">
+        <h1>Modular<br>JavaScript</h1>
+    </div>
+    <!-- 标题结束 -->
+    <div id="peopleModule">
+        <h1>people</h1>
+        <div id="counts">
+            <!-- 纪录数量模版开始 -->
+            <script type="text/template" id="count-template">
+                <p>纪录了<span>{{counts}}</span>人</p>
+            </script>
+            <!-- 模版结束 -->
+        </div>
+        <input type="text" placeholder="name">
+        <button id="addPerson">add</button>
+        <ul id="people">
+            <!-- 模版开始 -->
+            <script type="text/template" id="people-template">
+                {{#people}}
+                <li>
+                    <!-- 带点的语法，可以循环一个字符串数组，并指向当前项 -->
+                    <span>{{.}}</span>
+                    <i class="del">X</i>
+                </li>
+                {{/people}}
+            </script>
+            <!-- 模版结束 -->
+        </ul>
+    </div>
+    <!-- 提示弹窗 -->
+    <div id="warning">
+        <p>输入为空！</p>
+        <button>关闭</button>
+    </div>
+    <!-- 引入 jQuery 文件 -->
+    <script type="text/javascript" src='../libs/jquery-1.8.3.min.js'></script>
+    <!-- 引入模版 js -->
+    <script type="text/javascript" src='../libs/mustache.js'></script>
+    <!-- 很挫很挫的写法 -->
+    <!-- <script type="text/javascript">
 	
 	// 很挫很挫的写法
 	$(function() {
@@ -98,35 +94,10 @@
 	})
 	
 </script> -->
-
-
-
-<!-- 初步模块化代码 -->
-<!-- <script type="text/javascript" src="js/modulejs-step1.js"></script> -->
-
-
-
-<!-- 进一步模块化代码 -->
-<script type="text/javascript" src="js/modulejs-step2.js"></script>
+    <!-- 初步模块化代码 -->
+    <!-- <script type="text/javascript" src="js/modulejs-step1.js"></script> -->
+    <!-- 进一步模块化代码 -->
+    <script type="text/javascript" src="js/modulejs-step2.js"></script>
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
