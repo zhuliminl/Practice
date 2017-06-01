@@ -12,7 +12,7 @@
     let test = function() { // 用来包裹测试代码，每次练习结束，就复制到这里。并整理
 
 
-            // 块作用域	
+            // 块作用域 
             for (let i = 0; i < 10; i++) {
                 console.log(i);
             }
@@ -39,7 +39,7 @@
 
             // 模版 
             let saul1 = `Saul  
-				is  my friend`;
+                is  my friend`;
             console.log(saul1);
 
             // 换行空格不再需要填充空字符串，注意用的不是引号
@@ -213,7 +213,7 @@
             // timeout(1000).then((value) => {
             //     console.log(value);
             // },(value) => {
-            // 	console.log(value); // 显示
+            //  console.log(value); // 显示
             // })
 
             // 建议写成
@@ -267,9 +267,24 @@
 
 
 
+
+            // 偶尔插入别的知识：global 对象
+            let uri = 'http://api.icndb.com/jokes/random?firstName=John&amp; lastName=Doe';
+            // 正向
+            console.log(encodeURI(uri)); // http://api.icndb.com/jokes/random?firstName=John&amp;%20lastName=Doe
+            console.log(encodeURIComponent(uri)); // http%3A%2F%2Fapi.icndb.com%2Fjokes%2Frandom%3FfirstName%3DJohn%26amp%3B%20lastName%3DDoe
+            // 反向
+            console.log(decodeURI(encodeURI(uri))); // http://api.icndb.com/jokes/random?firstName=John&amp; lastName=Doe
+            console.log(decodeURIComponent(encodeURIComponent(uri))); // 结果同上
+            console.log(decodeURI(encodeURIComponent(uri))); // 只会解析出空格
+
+
+
         }
         // 测试包裹结束
-        
+
+
+    
 
 
 
@@ -298,25 +313,3 @@
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
