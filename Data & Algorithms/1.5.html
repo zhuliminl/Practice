@@ -1,116 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>1.5</title>
+    <meta charset="UTF-8">
+    <title>1.5</title>
 </head>
+
 <body>
-	<p>真值和假值</p>
-	<script type="text/javascript">
-		var a = document.createElement('a');
-		var linkText = document.createTextNode('郝凤');
-		a.setAttribute('href', '#');
-		a.setAttribute('class', 'haofeng');
-		a.appendChild(linkText);
-		document.body.appendChild(a);
+    <p>真值和假值</p>
+    <script type="text/javascript">
+    var a = document.createElement('a');
+    var linkText = document.createTextNode('郝凤');
+    a.setAttribute('href', '#');
+    a.setAttribute('class', 'haofeng');
+    a.appendChild(linkText);
+    document.body.appendChild(a);
 
 
-		function testTruthy(val) {
-			return val ? console.log('truthy') : console.log('falsy');
-		}
+    function testTruthy(val) {
+        return val ? console.log('truthy') : console.log('falsy');
+    }
 
-		testTruthy(false);
-		testTruthy(true);
-		testTruthy(new Boolean(false));
-		testTruthy(new Array);
-		testTruthy('');//空字符串
-		testTruthy('some');//非空字符串				
-		testTruthy(1);//				
-		testTruthy(-1);//				
-		testTruthy(new String);//对象始终为真				
-		testTruthy(NaN);//非数字为假
-		testTruthy(new Number(NaN));//对象始终为真	
-		testTruthy({});//对象始终为真	
+    testTruthy(false);
+    testTruthy(true);
+    testTruthy(new Boolean(false));
+    testTruthy(new Array);
+    testTruthy(''); //空字符串
+    testTruthy('some'); //非空字符串				
+    testTruthy(1); //				
+    testTruthy(-1); //				
+    testTruthy(new String); //对象始终为真				
+    testTruthy(NaN); //非数字为假
+    testTruthy(new Number(NaN)); //对象始终为真	
+    testTruthy({}); //对象始终为真	
 
-		var obj = {name: 'John'};
-		testTruthy(obj);
-		testTruthy(obj.name);
-		testTruthy(obj.age);//年龄不存在
+    var obj = {
+        name: 'John'
+    };
+    testTruthy(obj);
+    testTruthy(obj.name);
+    testTruthy(obj.age); //年龄不存在
 
-		console.log('Jhon' ? true : false);
-		console.log('Jhon' == true);
+    console.log('Jhon' ? true : false);
+    console.log('Jhon' == true);
 
-		console.log('name' == true);
-		console.log('name' === 'name');
+    console.log('name' == true);
+    console.log('name' === 'name');
 
-		var a = {name : 'Jhon'};
-		var b = {name : 'Jhon'};
-		console.log(a == b);//对象不同
-		console.log(a === b);
+    var a = {
+        name: 'Jhon'
+    };
+    var b = {
+        name: 'Jhon'
+    };
+    console.log(a == b); //对象不同
+    console.log(a === b);
 
-		var month = 5;
-		if (month === 1) {
-			console.log("一月");
-		} else if (month === 2)	{
-			console.log("二月")
-		} else if (month === 3) {
-			console.log("三月")
-		} else {
-			console.log("其他月份")
-		}
+    var month = 5;
+    if (month === 1) {
+        console.log("一月");
+    } else if (month === 2) {
+        console.log("二月")
+    } else if (month === 3) {
+        console.log("三月")
+    } else {
+        console.log("其他月份")
+    }
 
-		//创建对象
-		var obj = {
-			name: {
-				first: 'zhuliminl',
-				last: 'haofeng'
-			},
-			address: 'Middle Earth'
-		}
+    //创建对象
+    var obj = {
+        name: {
+            first: 'zhuliminl',
+            last: 'haofeng'
+        },
+        address: 'Middle Earth'
+    }
 
-		// console.table(obj);
+    // console.table(obj);
 
 
-		function Book(title, pages, isbn) {
-			this.title = title;
-			this.pages = pages;
-			this.isbn = isbn;
-			this.printIsbn = function () {
-				console.log(this.isbn);
-			}
-		}
+    function Book(title, pages, isbn) {
+        this.title = title;
+        this.pages = pages;
+        this.isbn = isbn;
+        this.printIsbn = function() {
+            console.log(this.isbn);
+        }
+    }
 
-		var book = new Book('呼啸山庄', '342', '32232424As');
-		console.log(book.title);
-		book.title = '简爱';
-		console.log(book.title);
-		console.log(book.pages);
-		console.table(book);
+    var book = new Book('呼啸山庄', '342', '32232424As');
+    console.log(book.title);
+    book.title = '简爱';
+    console.log(book.title);
+    console.log(book.pages);
+    console.table(book);
 
-		Book.prototype.printTitle = function() {
-			console.log(this.title);
-		}
-		book.printTitle();
-		book.printIsbn();
-
-	</script>
+    Book.prototype.printTitle = function() {
+        console.log(this.title);
+    }
+    book.printTitle();
+    book.printIsbn();
+    </script>
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

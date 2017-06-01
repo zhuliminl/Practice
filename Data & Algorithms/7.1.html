@@ -1,86 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>7.1</title>
+    <meta charset="UTF-8">
+    <title>7.1</title>
 </head>
+
 <body>
-	<p>7.1字典</p>
+    <p>7.1字典</p>
+    <script type="text/javascript">
+    function showTitle(title) {
+        console.log('\n');
+        console.log(title);
+    }
 
-	<script type="text/javascript">
+    function Dictionary() {
+        var items = {};
 
-		function showTitle(title) {
-			console.log('\n');
-			console.log(title);
-			}
+        this.has = function(key) {
+            return key in items;
+        };
+        this.set = function(key, value) {
+            items[key] = value;
+        };
+        this.remove = function(key) {
+            if (this.has(key)) {
+                // delete key in items;
+                delete items[key];
+            }
+        };
+        this.get = function(key) {
+            return this.has(key) ? items[key] : undefined;
+        };
+        this.value = function() {
+            var values = [];
+            for (var key in items) {
+                if (this.has(key)) {
+                    values.push(items[key]);
+                }
+            }
+            return values;
+        };
+        this.getItems = function() {
+            return items;
+        };
+        this.size = function() {
+            return Object.keys(items).length;
+        }
+    }
 
-		function Dictionary() {
-			var items = {};
-
-			this.has = function(key) {
-				return key in items;
-			};
-			this.set = function(key, value) {
-				items[key] = value;
-			};
-			this.remove = function(key) {
-				if(this.has(key)) {
-					// delete key in items;
-					delete items[key];
-				}
-			};
-			this.get = function(key) {
-				return this.has(key) ? items[key] : undefined;
-			};
-			this.value = function() {
-				var values = [];
-				for(var key in items) {
-					if(this.has(key)) {
-						values.push(items[key]);
-					}
-				}
-				return values;
-			};
-			this.getItems = function() {
-				return items;
-			};
-			this.size = function() {
-				return Object.keys(items).length;
-			}
-		}
-
-		showTitle('创建字典');
-		var dictionary = new Dictionary();
-		dictionary.set('郝凤', '产品经理');
-		dictionary.set('吉青', 'ui设计');
-		dictionary.set('坚哥', '平面设计');
-		dictionary.set('小冯', '小领导');
-		dictionary.set('徐总', '贴膜师');
-		console.log(dictionary.value());
-		console.log(dictionary.getItems());
-		console.log(dictionary.get('吉青'));
-		dictionary.remove('小冯');
-		console.log('\n');
-		console.log('\n');
-		console.log(dictionary.value());
-		console.log(dictionary.size());
-
-
-
-
-	</script>
-
+    showTitle('创建字典');
+    var dictionary = new Dictionary();
+    dictionary.set('郝凤', '产品经理');
+    dictionary.set('吉青', 'ui设计');
+    dictionary.set('坚哥', '平面设计');
+    dictionary.set('小冯', '小领导');
+    dictionary.set('徐总', '贴膜师');
+    console.log(dictionary.value());
+    console.log(dictionary.getItems());
+    console.log(dictionary.get('吉青'));
+    dictionary.remove('小冯');
+    console.log('\n');
+    console.log('\n');
+    console.log(dictionary.value());
+    console.log(dictionary.size());
+    </script>
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-

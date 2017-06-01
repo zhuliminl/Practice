@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Learn ES6</title>
+</head>
+
+<body>
+    <h1>ES6</h1>
+    <script type="text/javascript">
+    let test = function() { // 用来包裹测试代码，每次练习结束，就复制到这里。并整理
+
+
+            // 块作用域	
+            for (let i = 0; i < 10; i++) {
+                console.log(i);
+            }
+            console.log('out side loop', i); // 出错
+
+            // 块作用域
+            {
+                let name = 'zhuliminl';
+                let age = 32432;
+            }
+
+            console.log(name); // 出错
+            console.log(age);
+
+
+
+            // 常量不可更改。需大写
+            const API_KEY = 'kjs23423423432234'; // 大写
+
+            API_KEY = '2345l324'; // can not been changed
+            console.log(API_KEY);
+
+
+
+            // 模版 
+            let saul1 = `Saul  
+				is  my friend`;
+            console.log(saul1);
+
+            // 换行空格不再需要填充空字符串，注意用的不是引号
+            let firstName = 'zhu';
+            let lastName = 'liminl';
+            console.log(firstName + ' ' + lastName); // zhu liminl
+            console.log(`My name is ${firstName}   ${lastName}`); // My name is zhu liminl
+
+            let person = {
+                name: 'jhon',
+                age: 24,
+                sayName() {
+                    return `his name is ${this.name} , and his age is ${this.age}`;
+                }
+            }
+            let name = person.sayName();
+            console.log(name);
+
+
+
+            // 箭头函数
+            let add = (a, b) => {
+                return a + b;
+            }
+
+            let multiple = (a, b) => a * b
+            console.log(add(3, 4));
+            console.log(multiple(3, 4));
+
+            let numbers = [1, 3, 4, 5, 6];
+            let doubledES5 = numbers.map(function(n) {
+                return n * 2;
+            });
+            let doubledES6 = numbers.map((n) => n * 2); // 很简洁的方法
+
+            console.log(doubledES5);
+            console.log(doubledES6);
+
+
+
+            // this 的指向区别
+            window.name = 'Ben'; // 全局对象的 name 
+            let saul = {
+                name: 'Saul',
+                girlfriends: ['Elena', 'Carrie', 'Mary', 'Lenka'],
+                showGirls: function() {
+                    this.girlfriends.forEach(function(girl) {
+                        console.log(`${this.name} got ${girl}`); // 在 ES5 中这里拿到的 this 执向全局
+                    });
+                }
+            };
+            saul.showGirls(); // Ben got ...
+
+            let Demon = {
+                name: 'Saul',
+                girlfriends: ['Elena', 'Carrie', 'Mary', 'Lenka'],
+                showGirls: function() {
+                    this.girlfriends.forEach((girl) => { // 箭头函数则根据外层作用域来决定 this
+                        console.log(`${this.name} got ${girl}`);
+                    });
+                }
+            };
+            Demon.showGirls(); // Saul got ...
+
+
+
+            // 展开运算符和剩余参数
+            let sum = function() { // arguments is Array-like Object
+                return Array.prototype.reduce.call(arguments, (prev, curr) => {
+                    return prev + curr;
+                });
+            };
+            console.log(sum(1, 2, 3, 4));
+
+            // 现在可这个么写
+            let multiple = (...args) => {
+                return args.reduce((prev, curr) => prev * curr)
+            };
+            console.log(multiple(1, 2, 3, 4));
+
+            // 第一个参数乘以后续参数形成的数组
+            let multiply = (mul, ...args) => {
+                return args.map((el) => el * mul);
+            };
+            console.log(multiply(2, 1, 2, 3, 4, 5));
+
+
+
+            // 展开运算符可以展开数组，因此可以替换apply方法，将数组转为函数的参数
+            let numbers = [1, 4, 6, 7];
+            let maxNO = Math.max(numbers); // NaN
+            console.log(maxNO);
+
+            let maxOK = Math.max.apply(null, numbers); // ES5 写法
+            let maxBetter = Math.max(...numbers); // ES6 更简洁的写法
+            console.log(maxOK); // 7
+            console.log(maxBetter); // 7
+
+
+            let numbers1 = [1, 32, 6];
+            let numbers2 = [2, 54, 7];
+            let concatNumbers = numbers1.concat(numbers2);
+            console.log(concatNumbers);
+
+            let numbers3 = [2, 54, 7, ...numbers1];
+            console.log(numbers3);
+
+            numbers2.push(...numbers1); // 更简便的写法
+            console.log(numbers2);
+
+
+
+            // 解构赋值
+            // 对于数组
+            let someArray = ['sual', 'demon', 'bend', 'steven', 'jack', 'quinn', 'dal'];
+            let [first, second, third, ...restName] = someArray;
+            console.log(first); // sual
+            console.log(second); // demon
+            console.log(restName); // ["steven", "jack", "quinn", "dal"]
+
+            // 对于对象
+            let obj = {
+                name: 'zhuliml',
+                age: 34,
+                location: 'anqing'
+            };
+            let {
+                age: hisage,
+                location: where
+            } = obj; // 赋值方向相反
+            console.log(hisage); // 34
+            console.log(where); // anqing
+
+
+
+
+
+            // Promise 处理异步
+            console.dir(Promise);
+            /**
+             * Promise 构造函数接受两个函数类型的参数(由引擎提供，不用自己部署)：resolve 和 reject ，在对象中可以通过原型方法 then()来回调执行
+             */
+
+            function runAsync() { // 由于是创建后立即执行，所以需要包裹它，在别处调用
+                let p = new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        console.log('执行完成！！！');
+                        resolve('参数')
+                    }, 2000); // 2 秒
+                });
+                return p;
+            }
+
+            runAsync();
+
+
+            // 简单例子
+            function timeout(ms) {
+                return new Promise((resolve, reject) => { // 返回 Promise 对象
+
+                    setTimeout(() => {
+                        resolve('done!!'); // 如果 resolve 带有参数，它们会被传递给回调函数
+                    }, ms);
+
+                    setTimeout(() => {
+                        reject('oh no, 状态为 reject,不会执行 resolve');
+                    }, 500); // 一旦状态确定就会凝固，不会再改变
+                });
+            }
+
+            // timeout(1000).then((value) => {
+            //     console.log(value);
+            // },(value) => {
+            // 	console.log(value); // 显示
+            // })
+
+            // 建议写成
+            timeout(1000).then((value) => {
+                console.log(value);
+            }).catch((err) => { // 应该使用 catch 来捕获错误
+                console.log(err);
+            });
+
+
+
+
+            // 多个 Promise
+            let myPromise1 = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log('Promise 1')
+                }, 1000);
+            });
+
+            let myPromise2 = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    console.log('Promise 2')
+                }, 1500);
+            });
+
+            Promise.all([myPromise1, myPromise2]) // all 方法接受数组作为参数，
+                .then((data) => { // 只要有一个被 rejected，p的状态就变成rejected
+                    console.log(data);
+                });
+
+
+
+            // 使用 fetch 
+            fetch('http://api.icndb.com/jokes/random/10') // fetch 会返回一个 promise 对象
+                .then((res) => {
+                    console.log(res.json() // 拿到数据，还是返回一个 promise 对象
+
+                        .then((data) => {
+                            console.log(data);
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        })
+
+                    )
+
+                })
+                .catch((err) => {
+                    console.log(err)
+                })
+
+
+
+        }
+        // 测试包裹结束
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

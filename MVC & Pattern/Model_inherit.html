@@ -1,194 +1,175 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8"/>
-	<title>Model_inherit</title>
+    <meta charset="UTF-8" />
+    <title>Model_inherit</title>
 </head>
+
 <body>
-	
-
-
-<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-<script type="text/javascript">
-
-	var assertEqual = function(val1, val2, msg) {
-      if (val1 !== val2)
-        throw(msg || (val1 + " does not equal " + val2));
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script type="text/javascript">
+    var assertEqual = function(val1, val2, msg) {
+        if (val1 !== val2)
+            throw (msg || (val1 + " does not equal " + val2));
     };
 
 
-	if(typeof Object.create !== 'function') { // ES5 之前的兼容办法
-		Object.create = function(o) {
-			function F() {};
-			F.prototype = o;
-			return new F();
-		}
-	}
+    if (typeof Object.create !== 'function') { // ES5 之前的兼容办法
+        Object.create = function(o) {
+            function F() {};
+            F.prototype = o;
+            return new F();
+        }
+    }
 
-	// 创建模型
-	var Model = {
+    // 创建模型
+    var Model = {
 
-		inherted : function() {},
+        inherted: function() {},
 
-		created : function() {},
+        created: function() {},
 
-		prototype : {
-			init : function() { }
-		},
+        prototype: {
+            init: function() {}
+        },
 
-		create : function() {
-			var object = Object.create(this);
-			object.parent = this;
+        create: function() {
+            var object = Object.create(this);
+            object.parent = this;
 
-			object.prototype = object.fn = Object.create(this.prototype);
+            object.prototype = object.fn = Object.create(this.prototype);
 
-			object.created();
-			this.inherted(object);
+            object.created();
+            this.inherted(object);
 
-			return object; // 返回了一个对象
-		},
+            return object; // 返回了一个对象
+        },
 
-		init : function() {
-			var instance = Object.create(this.prototype);
-			instance.parent = this;
-			instance.init.apply(instance, arguments);
-			return instance;
-		},
+        init: function() {
+            var instance = Object.create(this.prototype);
+            instance.parent = this;
+            instance.init.apply(instance, arguments);
+            return instance;
+        },
 
-		extend : function(o) {
-			var extended = o.extended; // 先储存被添加对象自己的扩展
-			jQuery.extend(this, o); // 扩展
-			if(extended) {
-				extended(this); // 这句没有也可以
-			}
-		},
+        extend: function(o) {
+            var extended = o.extended; // 先储存被添加对象自己的扩展
+            jQuery.extend(this, o); // 扩展
+            if (extended) {
+                extended(this); // 这句没有也可以
+            }
+        },
 
-		include : function(o) {
-			var included = o.included;
-			jQuery.extend(this.prototype, o);
-			if(included) {
-				included(this);
-			}
-		}
+        include: function(o) {
+            var included = o.included;
+            jQuery.extend(this.prototype, o);
+            if (included) {
+                included(this);
+            }
+        }
 
-	};
+    };
 
-	// 添加对象属性
-	Model.extend({
-		init: function(){
-		  this.records = {};
-		  this.attributes = [];
-		},j
-	    find : function(id) { // 根据 ID 查找资源
-	    	return this.records[id] || console.log('Unknown record');
-	    }
-	});
+    // 添加对象属性
+    Model.extend({
+        init: function() {
+            this.records = {};
+            this.attributes = [];
+        },
+        j
+        find: function(id) { // 根据 ID 查找资源
+            return this.records[id] || console.log('Unknown record');
+        }
+    });
 
-	// 添加实例属性
-	Model.include({
-		newRecord : true,
+    // 添加实例属性
+    Model.include({
+        newRecord: true,
 
-		init : function(atts) { // 初始化
-			if(atts) {
-				this.load(atts);
-			}
-		},
-		load : function(attributes) { // 装载
-			for(var name in attributes) {
-				this[name] = attributes[name];
-			}
-		},
-		attributes: function(){ // 返回 this.parent 的属性对象
-	      var result = {};
-	      for(var i in this.parent.attributes) {
-	        var attr = this.parent.attributes[i];
-	        result[attr] = this[attr];
-	      }
-	      result.id = this.id;
-	      return result;
-	    },
-	    create : function() { // 添加
-	    	this.newRecord = false;
-	    	this.parent.records[this.id] = this;
-	    },
-	    destroy : function() {
-	    	delete this.parent.records[this.id]; // 删除
-	    },
-	    update : function() {
-	    	this.parent.records[this.id] = this;
-	    },
-	    save : function() { // 创建快捷函数来保存实例
-	    	this.newRecord ? this.create() : this.update();
-	    }
-	});
-
-
-
-
-
-	// ORM 的添加
-	// 添加对象属性
-	jQuery.extend(Model, {
-		find : function() {}
-	});
-
-	// 添加实例属性
-	jQuery.extend(Model.prototype, {
-		init : function(atts) {
-			if(atts) {
-				this.load(atts);
-			}
-		},
-
-		load : function(attributes) {
-			for(var name in attributes) {
-				this[name] = attributes[name];
-			}
-		}
-	})
-
-
-	var Asset = Model.create('Asset');
-	var asset = Asset.init();
-	asset.name = "same, same";
-	asset.id = 1;
-	asset.save();
-
-	var asset2 = Asset.init();
-	asset2.name = 'But different';
-	asset2.id = 2;
-	asset.save();
-
-	assertEqual(Asset.find(1).name, 'same, same');
-	asset2.destroy();
-
-
-
-	jQuery.fn = jQuery.prototype = {
-		init : function() {select, context}
-	}
+        init: function(atts) { // 初始化
+            if (atts) {
+                this.load(atts);
+            }
+        },
+        load: function(attributes) { // 装载
+            for (var name in attributes) {
+                this[name] = attributes[name];
+            }
+        },
+        attributes: function() { // 返回 this.parent 的属性对象
+            var result = {};
+            for (var i in this.parent.attributes) {
+                var attr = this.parent.attributes[i];
+                result[attr] = this[attr];
+            }
+            result.id = this.id;
+            return result;
+        },
+        create: function() { // 添加
+            this.newRecord = false;
+            this.parent.records[this.id] = this;
+        },
+        destroy: function() {
+            delete this.parent.records[this.id]; // 删除
+        },
+        update: function() {
+            this.parent.records[this.id] = this;
+        },
+        save: function() { // 创建快捷函数来保存实例
+            this.newRecord ? this.create() : this.update();
+        }
+    });
 
 
 
 
 
+    // ORM 的添加
+    // 添加对象属性
+    jQuery.extend(Model, {
+        find: function() {}
+    });
+
+    // 添加实例属性
+    jQuery.extend(Model.prototype, {
+        init: function(atts) {
+            if (atts) {
+                this.load(atts);
+            }
+        },
+
+        load: function(attributes) {
+            for (var name in attributes) {
+                this[name] = attributes[name];
+            }
+        }
+    })
+
+
+    var Asset = Model.create('Asset');
+    var asset = Asset.init();
+    asset.name = "same, same";
+    asset.id = 1;
+    asset.save();
+
+    var asset2 = Asset.init();
+    asset2.name = 'But different';
+    asset2.id = 2;
+    asset.save();
+
+    assertEqual(Asset.find(1).name, 'same, same');
+    asset2.destroy();
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-	
-</script>
-
-
+    jQuery.fn = jQuery.prototype = {
+        init: function() {
+            select,
+            context
+        }
+    }
+    </script>
 </body>
+
 </html>

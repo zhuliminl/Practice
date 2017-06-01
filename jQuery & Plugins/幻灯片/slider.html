@@ -1,109 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>slider</title>
-	<link rel="stylesheet" href="css/style.css">
-
-	<script type="text/javascript" src="../src/libs/jquery-1.8.3.min.js"></script>
-
+    <meta charset="UTF-8">
+    <title>slider</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="../src/libs/jquery-1.8.3.min.js"></script>
 </head>
+
 <body>
+    <div class="slider">
+        <ul class="sliders">
+            <li class="slide"><img src="img/ben.jpg" alt=""></li>
+            <li class="slide"><img src="img/carrie.jpg" alt=""></li>
+            <li class="slide"><img src="img/demon.jpg" alt=""></li>
+            <li class="slide"><img src="img/quinn.jpg" alt=""></li>
+            <li class="slide"><img src="img/saul.jpg" alt=""></li>
+        </ul>
+    </div>
+    <div class="point">
+        <span class="active"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <script type="text/javascript">
+    $(function() {
 
-	<div class="slider">
-		<ul class="sliders">
-			<li class="slide"><img src="img/ben.jpg" alt=""></li>
-			<li class="slide"><img src="img/carrie.jpg" alt=""></li>
-			<li class="slide"><img src="img/demon.jpg" alt=""></li>
-			<li class="slide"><img src="img/quinn.jpg" alt=""></li>
-			<li class="slide"><img src="img/saul.jpg" alt=""></li>
-		</ul>
-	</div>
-	<div class="point">
-		<span class="active"></span>
-		<span></span>
-		<span></span>
-		<span></span>
-		<span></span>
-		<span></span>
-	</div>
+        var width = 800,
+            animationSpeed = 1000,
+            pause = 1000,
+            currentSlide = 1;
 
-<script type="text/javascript">
+        var $slider = $('.slider'),
+            $sliderContainer = $slider.find('.sliders'),
+            $slides = $sliderContainer.find('.slide');
 
-$(function() {
+        var interval;
 
-	var width = 800,
-		animationSpeed = 1000,
-		pause = 1000,
-		currentSlide = 1;
 
-	var $slider = $('.slider'),
-		$sliderContainer = $slider.find('.sliders'),
-		$slides = $sliderContainer.find('.slide');
+        // 先不考虑图片展示的问题，先解决替换和循环
+        // 
+        var n = 0;
+        var $points = $('.point').find("span");
 
-	var interval;
+        function showCurrent() {
 
-	
-	// 先不考虑图片展示的问题，先解决替换和循环
-	// 
-	var n = 0; 
-	var $points = $('.point').find("span");
-	function showCurrent() {
-		
-		$slides.eq(n).fadeIn(2000).siblings().hide(); // 这是一个展示，其他消失的办法
-		if(n === $slides.length) {
-			n = 0;
-		}
-		n++;
-		$points.eq(n).addClass("active").siblings().removeClass("active");
-	}
-	
-	var readyToShow = function() {
-		interval = setInterval(showCurrent, 3000);
-	}
+            $slides.eq(n).fadeIn(2000).siblings().hide(); // 这是一个展示，其他消失的办法
+            if (n === $slides.length) {
+                n = 0;
+            }
+            n++;
+            $points.eq(n).addClass("active").siblings().removeClass("active");
+        }
 
-	function stop() {
-		clearInterval(interval);
-	}
+        var readyToShow = function() {
+            interval = setInterval(showCurrent, 3000);
+        }
 
-	$slider.on('mouseover', stop).on('mouseleave', function() {
-		readyToShow();
-	});
-	readyToShow();
-	
-	
+        function stop() {
+            clearInterval(interval);
+        }
+
+        $slider.on('mouseover', stop).on('mouseleave', function() {
+            readyToShow();
+        });
+        readyToShow();
 
 
 
-});
-	
-</script>
+
+
+    });
+    </script>
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

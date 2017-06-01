@@ -1,66 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>多行文本框变化</title>
-	<style type="text/css">
-		* {
-			margin: 0;
-			padding: 0;
-		}
+    <meta charset="UTF-8">
+    <title>多行文本框变化</title>
+    <style type="text/css">
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    
+    body {
+        padding: 30px;
+    }
+    
+    .msg_caption {
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 5px 10px;
+    }
+    
+    .msg_caption span {
+        display: inline;
+        margin-right: 10px;
+        padding: 4px 8px;
+        background-color: #ddd;
+    }
+    </style>
+    <script type="text/javascript" src="../libs/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var $comment = $('#comment');
+        $('.bigger').click(function() {
+            if (!$comment.is(':animated')) { //这样动画就不会叠加触发
+                if ($comment.width() < 500) {
+                    // $comment.width($comment.width() + 50);//在500以内就加50像素
+                    $comment.animate({
+                        width: '+=50'
+                    }, 400); //使用animate的方法有缓冲效果
+                }
+            }
 
-		body {
-			padding: 30px;
-		}
-
-		.msg_caption {
-			display: inline-block;
-			margin-bottom: 20px;
-			padding: 5px 10px;
-		}
-		.msg_caption span {
-			display: inline;
-			margin-right: 10px;
-			padding: 4px 8px;
-			background-color: #ddd;
-
-		}
-	</style>
-	<script type="text/javascript" src="../libs/jquery-1.8.3.min.js"></script>
-	<script type="text/javascript">
-		$(function() {
-			var $comment = $('#comment');
-			$('.bigger').click(function() {
-				if(!$comment.is(':animated')) {//这样动画就不会叠加触发
-					if($comment.width() < 500) {
-						// $comment.width($comment.width() + 50);//在500以内就加50像素
-						$comment.animate({
-							width : '+=50'
-						},400);//使用animate的方法有缓冲效果
-					}
-				}
-				
-			});
-			$('.smaller').click(function() {
-				if($comment.width() > 50) {
-					$comment.width($comment.width() - 50);//大于50像素，那就每次减50像素
-				}
-			})
-		})
-	</script>
-
+        });
+        $('.smaller').click(function() {
+            if ($comment.width() > 50) {
+                $comment.width($comment.width() - 50); //大于50像素，那就每次减50像素
+            }
+        })
+    })
+    </script>
 </head>
+
 <body>
-	<form>
-		<div class="msg">
-			<div class="msg_caption">
-				<span class="bigger">放大</span>
-				<span class="smaller">缩小</span>
-			</div>
-			<div>
-				<textarea name="" id="comment" cols="30" rows="10">dsfdsfdasfdasfdsafs</textarea>
-			</div>
-		</div>
-	</form>
+    <form>
+        <div class="msg">
+            <div class="msg_caption">
+                <span class="bigger">放大</span>
+                <span class="smaller">缩小</span>
+            </div>
+            <div>
+                <textarea name="" id="comment" cols="30" rows="10">dsfdsfdasfdasfdsafs</textarea>
+            </div>
+        </div>
+    </form>
 </body>
+
 </html>

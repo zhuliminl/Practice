@@ -1,81 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>PubSub</title>
+    <meta charset="UTF-8">
+    <title>PubSub</title>
 </head>
+
 <body>
-	
-<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+    <script type="text/javascript">
+    var experts = this;
 
-<script type="text/javascript">
-	var experts = this;
+    (function($) {
 
-	(function($) {
+        experts.Events = {
+            bind: function(ev, callback) {
+                var evs = ev.split(" ");
+                var calls = this._callbacks || (this._callbacks = {});
 
-		experts.Events = {
-			bind : function(ev, callback) {
-				var evs = ev.split(" ");
-				var calls = this._callbacks || (this._callbacks = {	});
+                for (var i = 0; i < evs.length; i++) {
+                    (this._callbacks[evs[i]] || (this._callbacks[evs[i]] = [])).push(callback);
+                }
+                return this;
+            },
 
-				for (var i = 0; i < evs.length; i++) {
-					(this._callbacks[evs[i]] || (this._callbacks[evs[i]] = [])).push(callback); 
-				}
-				return this;
-			}, 
+            trigger: function() {
+                var args = $.makeArray(arguments);
+                var ev = args.shift(); // 还是要好好巩固数据结构和基本算法啊。
+                // 简单复习一下几个关键词：数组，链表，双向链表，字典，集合，二叉树，几种排序，递归这些以后都要过一遍
 
-			trigger : function() {
-				var args = $.makeArray(arguments);
-				var ev = args.shift(); // 还是要好好巩固数据结构和基本算法啊。
-				// 简单复习一下几个关键词：数组，链表，双向链表，字典，集合，二叉树，几种排序，递归这些以后都要过一遍
+                var list, calls, i, l;
+                if (!(calls = this._callbacks)) return this;
+                if (!(list = this._callbacks[ev])) return this;
 
-				var list, calls, i, l;
-				if(!(calls = this._callbacks)) return this;
-				if(!(list = this._callbacks[ev])) return this;
-
-				for (var i = 0; i < list.length; i++) {
-					if(list[i].apply(this, args) === false) {
-						return false;
-					}
-					return this;
-				}
-			}
+                for (var i = 0; i < list.length; i++) {
+                    if (list[i].apply(this, args) === false) {
+                        return false;
+                    }
+                    return this;
+                }
+            }
 
 
-		};
+        };
 
 
-	})(jQuery);
-
-</script>
-
-	<script type="text/javascript">
-		
-	Events.bind("hail", function(type) {
-		alert("你好呀" + type);
-	});
-	Events.trigger("hail", "我");
-
-	
-	</script>
-	
+    })(jQuery);
+    </script>
+    <script type="text/javascript">
+    Events.bind("hail", function(type) {
+        alert("你好呀" + type);
+    });
+    Events.trigger("hail", "我");
+    </script>
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
