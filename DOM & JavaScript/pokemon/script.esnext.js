@@ -3,8 +3,11 @@ $('form').on('submit', function(e) {
 	e.preventDefault();
 
 	let types = $('input[type=text]').val().replace(/\s/g, '');
-	types = types.split(',');
-	console.log(types);
+	types = types.split(','); // 获得输入数组
+	
+	let trainerTypeCalls = types.map(elem => { // 参数便是我们输入的字符
+		return fetch('http://pokeapi.co/api/v2/type/${elem}/') // 新 API fetch 来取回
+	})
 });
 
 
