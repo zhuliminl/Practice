@@ -8,6 +8,7 @@
 
 <body>
     <script>
+    // 在调试工具里面先展开我们想认识的基本类型和内置对象
     console.dir(Math);
     console.dir(RegExp);
     console.dir(Object);
@@ -16,6 +17,7 @@
     console.dir(Date);
     console.dir(JSON);
     console.dir(Function);
+
     console.log('\n');
 
     let Person = function() {
@@ -30,8 +32,14 @@
     console.dir(Person);
     console.log(newPerson);
 
-    console.log(newPerson.__proto__ === Person.prototype); // true
-    console.log(Person.prototype.constructor === Person);
+    /**
+     * 每个对象都有 __proto__，并且 __proto__ 会一层层地找下去，直到最底层的 Object 对象。
+     * 而 prototype 则只在类中出现，用来添加共享的方法和属性。
+     * 其中 prototype 的 constructor 属性则是一个指回到对象自己的一个对象。
+     * 正是因为这样，所以我们能看到在调试台中 construtor 和 prototype 能一直循环下去
+     */
+    console.log(newPerson.__proto__ === Person.prototype); // true 实例出来的对象的 __proto__ 会和类的 prototype 挂钩
+    console.log(Person.prototype.constructor === Person); // true
 
 
 
@@ -44,7 +52,7 @@
 
 
 
-    
+
     </script>
 </body>
 
