@@ -284,15 +284,35 @@
         // 测试包裹结束
 
 
-        console.dir(Math);
-        console.dir(RegExp);
-        console.dir(Object);
-        console.dir(Array);
-        console.dir(String);
-        console.dir(Date);
-        console.dir(JSON);
-        console.dir(Function);
-       
+    console.dir(Math);
+    console.dir(RegExp);
+    console.dir(Object);
+    console.dir(Array);
+    console.dir(String);
+    console.dir(Date);
+    console.dir(JSON);
+    console.dir(Function);
+    console.log('\n');
+
+    let Person = function () {
+        this.name = 'saul';
+    };
+
+    Person.prototype.sayName = function() {console.log(this.name)}
+
+    let newPerson = new Person();
+    console.dir(Person);
+    console.log(newPerson);
+   
+    console.log(newPerson.__proto__ === Person.prototype); // true
+    console.log(Person.prototype.constructor === Person);
+
+
+
+
+
+
+
 
 
 
