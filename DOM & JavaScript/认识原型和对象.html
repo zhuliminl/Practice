@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>认识原型和对象</title>
+</head>
+
+<body>
+    <script>
+
+
+    /**
+     * 在调试工具里面先展开我们想认识的基本类型和内置对象。
+     * 通过 console.dir 出对内置对象的 __proto__ 发现几个常见的内置对象都是从 Object 到 Function 的逐级链接
+     * 此外，我们看到 Math 和 JSON 和其他内置对象有所不同。因为它们不需要充当构造函数（自然也没有 prototype ），进行实例化
+     * 我们一般直接使用 Math.random() 或者 JSON.stringify()，类似 Object.create() 和 Array.isArray()的这种方法都是
+     * 直接在内置对象中调用————无论是函数还是对象，点开 console.dir 的下拉，就会发现这些方法都在第一层级里面。
+     * 而不是 prototype 或者 ）__proto__ 。难道是因为 prototype 里面的是实例方法， prototype 之外的是类方法？
+     * Objetc.__proto__.__ptoto__ 的 Object 对象是最底层的对象。
+     */
+    
+    console.dir(RegExp);
+    console.dir(Array);
+    console.dir(String);
+    console.dir(Date);
+    console.dir(Function);
+    console.dir(Math);
+    console.dir(JSON);
+    console.dir(Object);
+    console.dir(Object.__proto__.__proto__); // 对象是基本对象的再包装？
+    
+
+
+
+
+    console.log('\n');
+    let Person = function() {
+        this.name = 'saul';
+    };
+
+    Person.prototype.sayName = function() {
+        console.log(this.name)
+    };
+
+    let newPerson = new Person();
+    console.dir(Person);
+    console.log(newPerson);
+
+
+    /**
+     * 每个对象都有 __proto__，并且 __proto__ 会一层层地找下去，直到最底层的 Object 对象。
+     * 而 prototype 则只在类中出现，用来添加共享的方法和属性。
+     * 其中 prototype 的 constructor 属性则是一个指回到对象自己的一个对象。
+     * 正是因为这样，所以我们能看到在调试台中 construtor 和 prototype 能一直循环下去
+     */
+    console.log(newPerson.__proto__ === Person.prototype ); // true 实例出来的对象的 __proto__ 会和类的 prototype 挂钩
+    console.log('实例出来的对象的 __proto__ 会和类的 prototype 挂钩');
+    console.log(Person.prototype.constructor === Person); // true
+    console.log('类的原型中的构造函数指向它自己')
+
+    // Object.defineProperty(Person.prototype, 'sayName', { // 如果上层的原型链访问属性设定了不可写，那就不发形成遮蔽了
+    // 	writable: false
+    // });
+
+    newPerson.sayName = 'sayName'; // 遮蔽原型链中的同名属性或方法
+    console.dir(newPerson);
+    console.log('原型遮蔽的几种情况')
+   	
+	
+
+
+
+    console.log('\n');
+    // 我们可以改写对象属性定义的规则
+    var book = {
+    	_year: 2004,
+    	edition: 1
+    };
+    Object.defineProperty(book, 'year', { // 定义 get 和 set 
+    	get: function() {return this._year},
+    	set: function(newValue) {
+
+    		if(newValue > 2004) {
+    			this._year = newValue;
+    			this.edition = newValue - 2004; // 返回修订版本
+    		}
+    	}
+    });
+    book.year = 2017;
+    console.log(book.edition);
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
