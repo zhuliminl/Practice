@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>认识原型</title>
+    <title>认识原型和对象</title>
 </head>
 
 <body>
@@ -17,6 +17,7 @@
     console.dir(Date);
     console.dir(JSON);
     console.dir(Function);
+    console.dir(Object);
 
     console.log('\n');
 
@@ -26,7 +27,7 @@
 
     Person.prototype.sayName = function() {
         console.log(this.name)
-    }
+    };
 
     let newPerson = new Person();
     console.dir(Person);
@@ -41,11 +42,13 @@
     console.log(newPerson.__proto__ === Person.prototype); // true 实例出来的对象的 __proto__ 会和类的 prototype 挂钩
     console.log(Person.prototype.constructor === Person); // true
 
+    // Object.defineProperty(Person.prototype, 'sayName', { // 如果上层的原型链访问属性设定了不可写，那就不发形成遮蔽了
+    // 	writable: false
+    // });
 
-
-
-
-
+    newPerson.sayName = 'sayName'; // 遮蔽原型链中的同名属性或方法
+    console.dir(newPerson);
+   
 
 
 

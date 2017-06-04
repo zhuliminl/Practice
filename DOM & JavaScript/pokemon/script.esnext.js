@@ -38,3 +38,5 @@ $('form').on('submit', function(e) {
 
 
 // displayPokemon();
+
+	console.dir($);

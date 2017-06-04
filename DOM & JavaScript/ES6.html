@@ -284,45 +284,37 @@
         // 测试包裹结束
 
 
-    console.dir(Math);
-    console.dir(RegExp);
-    console.dir(Object);
-    console.dir(Array);
-    console.dir(String);
-    console.dir(Date);
-    console.dir(JSON);
-    console.dir(Function);
-    console.log('\n');
 
-    let Person = function () {
-        this.name = 'saul';
-    };
+        let Person = function(name, age, job){
+            this.name = name;
+            this.age = age;
+            this.notPrototypeSayname = function() {
+                console.log(this.name + '!!');
+            }
+        };
+        Person.prototype.sayName = function() {
+            console.log(this.name);
+        }
 
-    Person.prototype.sayName = function() {console.log(this.name)}
+        let person1 = new Person('Saul', 24, 'teacher');
+        let person2 = new Person('Jack', 35, 'leader');
 
-    let newPerson = new Person();
-    console.dir(Person);
-    console.log(newPerson);
-   
-    console.log(newPerson.__proto__ === Person.prototype); // true
-    console.log(Person.prototype.constructor === Person);
+        console.dir(Person);
+        console.dir(person1);
+        console.log(person1.__proto__ === Person.prototype);
+        console.dir(person1.constructor === Person);
+        console.dir(Person.prototype.constructor === Person);
 
 
+        let person3 = Object.create(person1);
+        console.dir(person3);
+        console.log(person3.__proto__ === person1);
+        console.log('name' in person3);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        console.log(person1.sayName === person2.sayName);
+        console.dir(person1.sayName);
+        console.dir(person2.sayName);
 
 
 
