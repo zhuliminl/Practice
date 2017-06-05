@@ -29,7 +29,12 @@
     console.dir(JSON);
     console.dir(Object);
     console.dir(Object.__proto__.__proto__); // 对象是基本对象的再包装？
-    
+    // 扩展内置对象的方法
+    String.prototype.startWith = function(text) {
+    	return this.indexOf(text) === 0;
+    };
+    let str = 'hello world';
+    console.log(str.startWith('hello')); // true
 
 
 
@@ -39,11 +44,29 @@
         this.name = 'saul';
     };
 
-    Person.prototype.sayName = function() {
-        console.log(this.name)
-    };
+    Person.prototype = {
+
+    	sayNmae: function() {
+    		console.log(this.name);
+    	},
+    	shockName: function() {
+    		console.log((this.name) + "!!!");
+    	},
+    	saySome: function() {
+    		console.log('balablaa')
+    	}
+    }; 
+    // 但是字面量语法会丢失 constructor 的指向。
+    // 手动调整则会让 constructor 变得可枚举。
+    // 而我们可以使用 defineProperty 来让其不可枚举
+    Object.defineProperty(Person.prototype, 'constructor', {
+    	value: Person,
+    	enumerable: false // 让其不可枚举
+    })
+
 
     let newPerson = new Person();
+    // Person.prototype = {}; // 如果我们重写了原型对象，实例的原型并不会同步重新链接新的原型对象
     console.dir(Person);
     console.log(newPerson);
    	console.log((Person.sayName) + '类是不需要直接访问实例方法的');
@@ -59,7 +82,7 @@
     console.log(Person.prototype.constructor === Person); // true
     console.log('类的原型中的构造函数指向它自己')
 
-    // Object.defineProperty(Person.prototype, 'sayName', { // 如果上层的原型链访问属性设定了不可写，那就不发形成遮蔽了
+    // Object.defineProperty(Person.prototype, 'sayName', { // 如果上层的原型链访问属性设定了不可写，那就无法形成遮蔽了
     // 	writable: false
     // });
 
@@ -69,7 +92,10 @@
     console.log(Person.prototype.isPrototypeOf(newPerson)); // 检查某个对象是谁的原型对象
     console.log('检查某个对象是谁的原型对象');
    	
-	
+	function hasPrototypeProperty(object, name) {
+		return name in object && !object.hasOwnProperty(name);
+	};
+	console.log((hasPrototypeProperty(newPerson, 'shockName')) + ' 使用函数判断是否实例的属性和方法是否在原型对象中')
 
 
 
@@ -93,7 +119,7 @@
     console.log(book.edition);
 
     
-   
+
 
 
 

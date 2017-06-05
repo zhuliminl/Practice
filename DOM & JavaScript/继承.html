@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>继承</title>
+</head>
+
+<body>
+    <script>
+
+function SuperType() { // 父类
+	this.property = true;
+	this.name = '父类';
+}
+
+SuperType.prototype.getSuperValue = function() { // 父类原型方法
+	return this.property;
+}
+
+function SubType() { // 子类
+	this.subproperty = false;
+	this.name = '子类';
+}
+
+/**
+ * 实例化父类，让子类通过原型继承它。
+ * 这会使父类的构造函数中的内容链接到子类的 prototype 下，
+ * 而父类的原型 prototype 链接到子类的 __proto__
+ */
+SubType.prototype = new SuperType(); 
+
+SubType.prototype.getSubValue = function() {
+	return this.subproperty;
+}
+
+var instance = new SubType();
+console.log(instance.getSuperValue());
+console.dir(SuperType);
+console.dir(SubType);
+console.dir(instance);
+console.log(instance.__proto__ === SubType.prototype); // true
+console.dir(SubType.__proto__); 
+// anonymous 函数，不关子类 __proto__ 的事儿。
+// 只关乎它的 prorotype 的 __proto__ 链
+console.log(SubType.prototype.__proto__ === SuperType.prototype); // true
+/**
+ * 总结： 所以类和类的继承是在 prototype 的 __proto__ 里玩
+ */
+
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
