@@ -9,45 +9,73 @@
 <body>
     <script>
 
-function SuperType() { // 父类
-	this.property = true;
-	this.name = '父类';
-}
+    let test = function() {
 
-SuperType.prototype.getSuperValue = function() { // 父类原型方法
-	return this.property;
-}
+    	// 原型链实现继承
+    	function SuperType() { // 父类
+    		this.property = true;
+    		this.name = '父类';
+    	}
 
-function SubType() { // 子类
-	this.subproperty = false;
-	this.name = '子类';
-}
+    	SuperType.prototype.getSuperValue = function() { // 父类原型方法
+    		return this.property;
+    	}
 
-/**
- * 实例化父类，让子类通过原型继承它。
- * 这会使父类的构造函数中的内容链接到子类的 prototype 下，
- * 而父类的原型 prototype 链接到子类的 __proto__
- */
-SubType.prototype = new SuperType(); 
+    	function SubType() { // 子类
+    		this.subproperty = false;
+    		this.name = '子类';
+    	}
 
-SubType.prototype.getSubValue = function() {
-	return this.subproperty;
-}
+    	/**
+    	 * 实例化父类，让子类通过原型继承它。
+    	 * 这会使父类的构造函数中的内容链接到子类的 prototype 下，
+    	 * 而父类的原型 prototype 链接到子类的 __proto__
+    	 */
+    	SubType.prototype = new SuperType(); // 缺点： 1 实例化的时候会把父类的实例属性带到子类的原型中去，造成引用类型的问题 2 并且实例化父类的时候不能传递参数 
 
-var instance = new SubType();
-console.log(instance.getSuperValue());
-console.dir(SuperType);
-console.dir(SubType);
-console.dir(instance);
-console.log(instance.__proto__ === SubType.prototype); // true
-console.dir(SubType.__proto__); 
-// anonymous 函数，不关子类 __proto__ 的事儿。
-// 只关乎它的 prorotype 的 __proto__ 链
-console.log(SubType.prototype.__proto__ === SuperType.prototype); // true
-/**
- * 总结： 所以类和类的继承是在 prototype 的 __proto__ 里玩
- */
+    	SubType.prototype.getSubValue = function() {
+    		return this.subproperty;
+    	}
 
+    	var instance = new SubType();
+    	console.log(instance.getSuperValue());
+    	console.dir(SuperType);
+    	console.dir(SubType);
+    	console.dir(instance);
+    	console.log(instance.__proto__ === SubType.prototype); // true
+    	console.dir(SubType.__proto__); 
+    	// anonymous 函数，不关子类 __proto__ 的事儿。
+    	// 只关乎它的 prorotype 的 __proto__ 链
+    	console.log(SubType.prototype.__proto__ === SuperType.prototype); // true
+    	/**
+    	 * 总结： 所以类和类的继承是在 prototype 的 __proto__ 里玩
+    	 */
+    }
+
+    // 借用构造函数
+    function SuperType(name) {
+    	this.property = true;
+    	this.name = name;
+    	this.color = ['yellow', 'red', 'blue', 'green']; // 我们在父类中放入引用类型值
+    };
+    SuperType.prototype.sayName = function() {
+    	console.log(this.name);
+    }
+
+    function SubType(name) {
+    	SuperType.call(this, name); // 在子类中调用构造函数，并且还可以传入参数
+    	this.age = 34;
+    }
+    let instance1 = new SubType('Saul');
+    let instance2 = new SubType('Carrie');
+    console.dir(SubType); // 现在的子类 prototype 和 __proto__ 都很干净普通，因为我们这里没有用到原型链，而是借用构造函数
+    console.dir(instance1); // 父类定义的属性也会很清晰地出现在实例的普通属性中，而不是原型里
+    instance1.color.push('pink'); // 假如给其中一个实例的引用类型作出改变呢？
+    console.dir(instance1.color.length);
+    console.dir(instance2.color.length); // 这下实例中的引用类型是各自独立的了。
+    /**
+     * 缺点；只使用构造函数，那就无法取到父类中原型方法
+     */
 
     </script>
 </body>
