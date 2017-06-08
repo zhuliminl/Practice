@@ -1,5 +1,5 @@
-# 原生 JavaScript 练习
-这里记录一些原生的 JavaScript 小练习
+# 原生 JavaScript 
+
 
 ## 2017-5-27
 
