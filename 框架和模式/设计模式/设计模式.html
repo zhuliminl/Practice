@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>设计模式</title>
+</head>
+
+<body>
+    <script>
+    // test
+    let test = function() {
+        // 用对象收编变量
+        let CheckObject = {
+            checkName: function() {
+                // 验证姓名
+            },
+            checkEmail: function() {
+                // 验证邮箱
+            },
+            checkPassword: function() {
+                // 验证密码
+            }
+        };
+
+        // 把方法放在函数对象里
+        let checkObject = function() {
+            return {
+                checkName: function() {
+                    // 验证姓名
+                },
+                checkEmail: function() {
+                    // 验证邮箱
+                },
+                checkPassword: function() {
+                    // 验证密码
+                }
+            }
+        };
+        // 调用时这样调用
+        var a = checkObject();
+        a.checkName();
+
+        // 开始学会创建真正意义上的类
+        let CheckObject = function() {
+            this.checkName = function() {
+                // 验证名字
+            };
+            this.checkEmail = function() {
+                // 验证邮箱
+            };
+            this.checkPassword = function() {
+                // 验证密码
+            };
+        };
+        // 使用的时候，使用 new 	
+        let a = new CheckObject();
+        a.checkName();
+
+        // 开始使用原型方法，并且设计链式调用
+        let CheckObject = function() {};
+        CheckObject.prototype = {
+            checkName: function() {
+                // 验证名字
+                return this;
+            },
+            checkEmail: function() {
+                // 验证邮箱
+                return this;
+            },
+            checkPassword: function() {
+                // 验证密码
+                return this;
+            }
+        };
+        // 使用的时候
+        let a = new CheckObject();
+        a.checkName().checkEmail().checkPassword();
+
+
+        // 在原生函数上添加方法
+        Function.prototype.checkName = function() {
+            // 验证名字
+            console.log('OK');
+        };
+
+        let a = function() {};
+        a.checkName();
+        console.dir(Function.prototype); // 我们会看到新添加的 checkName 函数
+
+
+
+
+
+        // 更稳妥的添加方法
+        Function.prototype.addMethod = function(name, fn) {
+            this[name] = fn; // 添加自定义的方法到函数对象里去
+            return this; // 保证了方法的链式添加
+        };
+        let methods = function() {};
+        console.dir(methods); // 这样 methods 里就有了专门添加新方法的方法
+
+        methods
+            .addMethod('checkName', function() {
+                // 验证名字
+                console.log('我')
+                return this;
+            }).addMethod('checkEmail', function() {
+                // 验证邮箱
+                console.log('爱')
+                return this;
+            }).addMethod('checkPassword', function() {
+                // 验证密码
+                console.log('你')
+                return this; // 保证了对象上方法的链式调用
+            });
+
+        console.dir(methods);
+        /**
+         * 这个时候我们可以看到我们通过在函数对象的原型对象添加 addMethod 
+         * 然后利用这个方法给我们在 methods 上创建了更多的方法
+         */
+
+        // 于是我们可以
+        methods.checkName().checkEmail().checkPassword();
+
+
+
+
+        // 不过最好还是使用类的方式来创建对象
+        Function.prototype.addMethod = function(name, fn) {
+            this.prototype[name] = fn; 
+            // 是添加到原型上，这样实例化的时候就不会添加到构造函数上
+            return this;
+        };
+        let Methods = function() {};
+        Methods
+            .addMethod('checkName', function() {
+                // 验证名字
+                console.log('我')
+                return this;
+            }).addMethod('checkEmail', function() {
+                // 验证邮箱
+                console.log('爱')
+                return this;
+            }).addMethod('checkPassword', function() {
+                // 验证密码
+                console.log('你')
+                return this; // 保证了对象上方法的链式调用
+            });
+        let a = new Methods(); // 使用类方法
+        console.dir(a);
+        a.checkPassword().checkEmail().checkName();
+
+
+
+    }
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+
+</body>
+
+</html>
