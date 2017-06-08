@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>设计模式</title>
+    <title>灵活的语言</title>
 </head>
 
 <body>
@@ -129,7 +129,7 @@
 
         // 不过最好还是使用类的方式来创建对象
         Function.prototype.addMethod = function(name, fn) {
-            this.prototype[name] = fn; 
+            this.prototype[name] = fn;
             // 是添加到原型上，这样实例化的时候就不会添加到构造函数上
             return this;
         };
@@ -155,40 +155,7 @@
 
 
     }
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </script>
-
-
 </body>
 
 </html>
