@@ -21,14 +21,14 @@
             }
 
             // 特权方法
-            this.getName = function() { // 特权的地方在于它们能有访问私有属性和私有方法的能力
+            this.getName  = function() { // 特权的地方在于它们能有访问私有属性和私有方法的能力
 
             };
             this.getPrice = function() {
 
             };
-            this.setName = function(name) {
-                this.bookName = name;
+            this.setName  = function(name) {
+            this.bookName = name;
             };
             this.setPrice = function() {
 
@@ -80,16 +80,167 @@
          * 我们的对象也无法访问后来在类的构造函数之外定义的静态的公有属性和方法
          * 而原型中的倒是可以
          */
+
+
+
+
+
+
+
+
+
+
+        // 闭包实现。利用 IIFE 在闭包内部实现一个完整的类，然后将其返回
+        let Book = (function() {
+            let bookNum = 0; 		// 静态私有属性
+            function checkBook() { 	// 静态私有方法
+                if (bookNum) {
+                    console.log(bookNum);
+                }
+            }
+
+            function _book(newId, newName, newPrice) {
+                let name, price; 		// 私有属性
+
+                function checkId(id) { 	// 私有方法
+
+                }
+
+                // 特权方法
+                this.getName  = function() {};
+                this.getPrice = function() {};
+                this.setName  = function() {};
+                this.setPrice = function() {};
+
+                this.id       = newId; 	// 公有属性
+
+                // 公有方法
+                this.copy     = function() {};
+
+                bookNum++;
+                if (bookNum > 100) {
+                    throw new Error('出错信息')
+                }
+
+                // 构造器
+                this.setName(name);
+                this.setPrice(price);
+            }
+
+            // 构建原型
+            _book.prototype = {
+                isJSbook: true,
+                diplay: function() {}
+            }
+
+            return _book; 			// 最后放回类
+        })();
+
+        console.dir(Book);
+        let a = new Book();
+        console.dir(a);
+
+
+
+
+
+
+
+        // 浅复制
+        let extend = function(target, source) {
+            for (var keys in source) {
+                target[keys] = source[keys];
+            }
+            return target;
+        };
+
+        let person1 = {
+            name  : 'Saul',
+            age   : 66,
+            girls : ['Quinn', 'Norah', 'Elena']
+        };
+
+        let person2 = {
+            job: 'CIA'
+        };
+
+        extend(person2, person1);
+        console.dir(person2);
+        console.dir(person1.girls.length); // 3
+        person1.girls.length = 10;
+        console.dir(person2.girls.length); // 10 引用值是同步的
+
+
+
+
+
+		// 多个对象的复制
+        let mix = function() {
+            // 其实就是把剩余的所有参数的对象的属性都添加到第一个参数上返回
+            let i = 1, 					// 从第二个参数开始
+                target = arguments[0],
+                arg; 					// 缓存
+            // 遍历被继承的对象
+            for (; i < arguments.length; i++) {
+                arg = arguments[i]; 	// 缓存参数对象
+                for (var keys in arg) {
+                    target[keys] = arg[keys];
+                }
+            }
+            return target;
+        };
+
+        let book   = {	 					// 第一个对象
+            name : '呼啸山庄',
+            id   : 1999
+        };
+        let reader = { 						// 第二个对象
+            email : 'zhuliminl@gmail.com',
+            tel   : '232223'
+        };
+
+        let person = mix(book, reader); 	// 混合对象
+        console.dir(person);
+
+
+
+
+
+
+
+        // 将多个对象复制继承的方法写到 Object的原型里去
+        Object.prototype.mix = function() {
+
+            let i = 0,
+                arg; 		// 缓存
+            				// 遍历被继承的对象
+            for (; i < arguments.length; i++) {
+                arg = arguments[i]; // 缓存参数对象
+                for (var keys in arg) {
+                    this[keys] = arg[keys];
+                }
+            }
+            return this;
+        };
+
+        Object.defineProperty(Object.prototype, 'mix', {
+            enumerable: false // 让它不可写，这样就不会跑到实例中去
+        })
+        let person = {};
+        person.mix({
+            name : 'zhuliminl'
+        }, {
+            age  : 25
+        });
+        console.dir(person);
+        let book = {};
+        console.dir(book);
+
     };
 
 
 
     
-
-
-
-
-
 
 
 
