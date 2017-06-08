@@ -240,8 +240,27 @@
 
 
 
-    
+    // 多态
+    // 通过对参数的判断来决定执行逻辑
+    function add() {
+    	let arg = arguments,
+    		len = arg.length;
 
+		switch(len) { // 用到多个判断
+			case 0:
+				return 10;
+			case 1:
+				return 10 + arg[0];
+			case 2:
+				return 10 + arg[0] + arg[1];
+		}
+    }
+    console.log(add()); // 10
+    console.log(add(10)); // 20
+    console.log(add(10, 11)); // 31
+    /**
+     * 上面的方法当然也可以用构造函数形式来写
+     */
 
 
 
