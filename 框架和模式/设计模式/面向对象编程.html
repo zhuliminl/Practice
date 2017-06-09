@@ -21,14 +21,14 @@
             }
 
             // 特权方法
-            this.getName  = function() { // 特权的地方在于它们能有访问私有属性和私有方法的能力
+            this.getName = function() { // 特权的地方在于它们能有访问私有属性和私有方法的能力
 
             };
             this.getPrice = function() {
 
             };
-            this.setName  = function(name) {
-            this.bookName = name;
+            this.setName = function(name) {
+                this.bookName = name;
             };
             this.setPrice = function() {
 
@@ -92,30 +92,30 @@
 
         // 闭包实现。利用 IIFE 在闭包内部实现一个完整的类，然后将其返回
         let Book = (function() {
-            let bookNum = 0; 		// 静态私有属性
-            function checkBook() { 	// 静态私有方法
+            let bookNum = 0; // 静态私有属性
+            function checkBook() { // 静态私有方法
                 if (bookNum) {
                     console.log(bookNum);
                 }
             }
 
             function _book(newId, newName, newPrice) {
-                let name, price; 		// 私有属性
+                let name, price; // 私有属性
 
-                function checkId(id) { 	// 私有方法
+                function checkId(id) { // 私有方法
 
                 }
 
                 // 特权方法
-                this.getName  = function() {};
+                this.getName = function() {};
                 this.getPrice = function() {};
-                this.setName  = function() {};
+                this.setName = function() {};
                 this.setPrice = function() {};
 
-                this.id       = newId; 	// 公有属性
+                this.id = newId; // 公有属性
 
                 // 公有方法
-                this.copy     = function() {};
+                this.copy = function() {};
 
                 bookNum++;
                 if (bookNum > 100) {
@@ -133,7 +133,7 @@
                 diplay: function() {}
             }
 
-            return _book; 			// 最后放回类
+            return _book; // 最后放回类
         })();
 
         console.dir(Book);
@@ -155,9 +155,9 @@
         };
 
         let person1 = {
-            name  : 'Saul',
-            age   : 66,
-            girls : ['Quinn', 'Norah', 'Elena']
+            name: 'Saul',
+            age: 66,
+            girls: ['Quinn', 'Norah', 'Elena']
         };
 
         let person2 = {
@@ -174,15 +174,15 @@
 
 
 
-		// 多个对象的复制
+        // 多个对象的复制
         let mix = function() {
             // 其实就是把剩余的所有参数的对象的属性都添加到第一个参数上返回
-            let i = 1, 					// 从第二个参数开始
+            let i = 1, // 从第二个参数开始
                 target = arguments[0],
-                arg; 					// 缓存
+                arg; // 缓存
             // 遍历被继承的对象
             for (; i < arguments.length; i++) {
-                arg = arguments[i]; 	// 缓存参数对象
+                arg = arguments[i]; // 缓存参数对象
                 for (var keys in arg) {
                     target[keys] = arg[keys];
                 }
@@ -190,16 +190,16 @@
             return target;
         };
 
-        let book   = {	 					// 第一个对象
-            name : '呼啸山庄',
-            id   : 1999
+        let book = { // 第一个对象
+            name: '呼啸山庄',
+            id: 1999
         };
-        let reader = { 						// 第二个对象
-            email : 'zhuliminl@gmail.com',
-            tel   : '232223'
+        let reader = { // 第二个对象
+            email: 'zhuliminl@gmail.com',
+            tel: '232223'
         };
 
-        let person = mix(book, reader); 	// 混合对象
+        let person = mix(book, reader); // 混合对象
         console.dir(person);
 
 
@@ -212,8 +212,8 @@
         Object.prototype.mix = function() {
 
             let i = 0,
-                arg; 		// 缓存
-            				// 遍历被继承的对象
+                arg; // 缓存
+            // 遍历被继承的对象
             for (; i < arguments.length; i++) {
                 arg = arguments[i]; // 缓存参数对象
                 for (var keys in arg) {
@@ -228,39 +228,52 @@
         })
         let person = {};
         person.mix({
-            name : 'zhuliminl'
+            name: 'zhuliminl'
         }, {
-            age  : 25
+            age: 25
         });
         console.dir(person);
         let book = {};
         console.dir(book);
 
+
+
+
+
+
+        // 多态
+        // 通过对参数的判断来决定执行逻辑
+        function add() {
+            let arg = arguments,
+                len = arg.length;
+
+            switch (len) { // 用到多个判断
+                case 0:
+                    return 10;
+                case 1:
+                    return 10 + arg[0];
+                case 2:
+                    return 10 + arg[0] + arg[1];
+            }
+        }
+        console.log(add()); // 10
+        console.log(add(10)); // 20
+        console.log(add(10, 11)); // 31
+        /**
+         * 上面的方法当然也可以用构造函数形式来写
+         */
+        
+
     };
 
-
-
-    // 多态
-    // 通过对参数的判断来决定执行逻辑
-    function add() {
-    	let arg = arguments,
-    		len = arg.length;
-
-		switch(len) { // 用到多个判断
-			case 0:
-				return 10;
-			case 1:
-				return 10 + arg[0];
-			case 2:
-				return 10 + arg[0] + arg[1];
-		}
+    let myArray = ['Saul', 'Quinn', 'Ben', 'Jack'];
+    myArray.creater = 'zhuliminl';
+    console.log(myArray.length);
+    for(keys in myArray) {
+        console.log(myArray[keys]);
     }
-    console.log(add()); // 10
-    console.log(add(10)); // 20
-    console.log(add(10, 11)); // 31
-    /**
-     * 上面的方法当然也可以用构造函数形式来写
-     */
+
+
 
 
 
