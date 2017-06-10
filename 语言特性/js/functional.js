@@ -240,8 +240,7 @@ function test() {
 
 
 
-
-
+// 函数的预加载能力
 
 console.dir(String);
 
@@ -283,7 +282,7 @@ console.dir(filterSpace(['nnn n', 'jj j ', 'aaa', 'ii ii'])); // 返回有空格
 // 现在我们来试试这个
 let noVoweles = replace(/[aeiou]/ig);
 let censored = noVoweles('*'); 
-console.dir(censored('Chocolate Rain')); // Ch*c*l*t* R**n 
+console.dir(censored('Chocolate Rain')); // Ch*c*l*t* R**n \
 
 
 
