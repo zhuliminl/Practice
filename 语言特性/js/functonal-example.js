@@ -2,6 +2,7 @@ let go = (x) => {
 	console.dir(x);
 };
 let _ = R;
+
 let trace = _.curry((tag, x) => { // 定义调试工具函数
 	console.log(tag, x);
 	return x;
@@ -15,8 +16,8 @@ let Impure = { // 简单包装 getJSON 方法
 		$.getJSON(url, callback);
 	}),
 
-	setHtml: _.curry((sel, html) => {
-		$(sel).html(html);
+	setHtml: _.curry((tag, html) => {
+		$(tag).html(html);
 	})
 }
 
