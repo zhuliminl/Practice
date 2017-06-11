@@ -1,5 +1,5 @@
 let go = (x) => console.dir(x);
-
+let _ = R;
 
 
 // 函数式编程
@@ -389,14 +389,181 @@ function test() {
     let dasherize = R.compose(R.join('*'), R.map(R.toUpper), R.split(' '), R.replace(/\s{2,}/ig, ' ')); // 用 map 来包裹一下就可以了
     go(dasherize('pen pineapple apple pen'));
 
+
+
+
+
+
+
+
     
 
 
+    // 练习1 —————— 重写 isLastInStock
+    let CARS = [
+        {name : "Ferrari FF", horsepower: 660, dollar_value: 700000, in_stock: true},
+        {name : "Spyker C12 Zagato", horsepower: 650, dollar_value: 648000, in_stock: false},
+        {name : "Jaguar XKR-S", horsepower: 550, dollar_value: 132000, in_stock: false},
+        {name : "Audi R8", horsepower: 525, dollar_value: 114200, in_stock: false},
+        {name : "Aston Martin One-77", horsepower: 750, dollar_value: 1850000, in_stock: true},
+        {name : "Pagani Huayra", horsepower: 700, dollar_value: 1300000, in_stock: false}
+      ];
+
+    function before1() {
+    	let isLastInStock = (cars) => {
+    		let last_car = R.last(cars);
+    		return R.prop('in_stock', last_car);
+    	};
+
+    	go(isLastInStock(CARS)); // false
+    }
+
+    let isLastInStock = R.compose(R.prop('in_stock'), R.last); // 需要的那么一点参数，放这里的了。感觉还是不纯
+    go(isLastInStock(CARS)); // false 
 
 
 
+    // 练习2
+    // 获取第一个 CARS 的 name
+    let nameOfFirstCar = R.compose(R.prop('name'), R.head); // 同上
+    go(nameOfFirstCar(CARS));
+
+    // 练习3
+    // 使用帮助函数 _average 重构 averageDollarValue 使之成为一个组合
+
+    function before2() {
+    	var _average = function(xs) { return reduce(add, 0, xs) / xs.length; }; // <- 无须改动
+
+    	var averageDollarValue = function(cars) {
+    	  var dollar_values = map(function(c) { return c.dollar_value; }, cars);
+    	  return _average(dollar_values);
+    	};
+    }
+
+    let _average = function(xs) { return R.reduce(R.add, 0, xs) / xs.length; };
+
+    let averageDollarValue = _.compose(_average, _.map(_.prop('dollar_value'))); // 类型需要对得上
+    go(averageDollarValue(CARS));
+
+
+    // 练习4
+    // 使用 compose 写一个 sanitizeNames() 函数，返回一个下划线连接的小写字符串：
+    // 例如：sanitizeNames(["Hello World"]) //=> ["hello_world"]。
+
+    function before3() {
+    	var _underscore = replace(/\W+/g, '_'); //<-- 无须改动，并在 sanitizeNames 中使用它
+
+    	var sanitizeNames = undefined;
+    }
+
+    let _underscore = _.replace(/\W+/g, '_');
+
+    let sanitizeNames = _.map(_.compose(_underscore, _.toLower));
+
+    go(sanitizeNames(['Hello World', 'I Love You'])); // ['hello_world', 'i_love_you']
+
+
+
+
+    // 彩蛋1   _.map(_.prop('dollar_value')),
+    // 重构 availablePrices
+    let availableTable = _.filter(_.prop('in_stock'));
+    let getAvailableValue = _.compose(_.join(','), _.map(_.prop('dollar_value')), availableTable);
+    go(getAvailableValue(CARS));
+
+
+    // 普通的实现。写命令式代码
+    // let priceList = getPrices(CARS).split(',');
+    // let availableList = availableTable(CARS); // 这里之前用的 map 得到的只是真值表，我误解了 _.filter 方法的作用
+    // let availableValue = [];
+
+    // for (var i = 0; i < priceList.length; i++) {
+    // 	if(priceList[i] && availableList[i]) {	
+    // 		availableValue.push(priceList[i]);
+    // 	}
+    // }
+
+    // go(availableValue);
+
+    // let leaveTrue = (x, y) => {
+    // 	let z = [];
+    // 	for (var i = 0; i < x.length; i++) {
+    // 		if(x[i] && y[i]) {
+    // 			z.push(x[i])
+    // 		}
+    // 	}
+    // 	return z;
+    // }
+
+    // let newAvailableValue = leaveTrue(priceList, availableList);
+    // go(newAvailableValue);
+    	
+
+    // 彩蛋2
+    function before4() {
+    	// 重构使之成为 pointfree 函数。提示：可以使用 _.flip()
+
+    	var fastestCar = function(cars) {
+    	  var sorted = _.sortBy(function(car){ return car.horsepower }, cars);
+    	  var fastest = _.last(sorted);
+    	  return fastest.name + ' is the fastest';
+    	};
+    }
+
+    let fastestCar = _.compose(_.join(''),_.append(' 是最快的'), _.prop('name'), _.last, _.sortBy(_.prop('horsepower')));
+    go(fastestCar(CARS));
+
+
+
+
+
+
+
+
+    
+    let CARS = [
+            {name : "Ferrari FF", horsepower: 660, dollar_value: 700000, in_stock: true},
+            {name : "Spyker C12 Zagato", horsepower: 650, dollar_value: 648000, in_stock: false},
+            {name : "Jaguar XKR-S", horsepower: 550, dollar_value: 132000, in_stock: false},
+            {name : "Audi R8", horsepower: 525, dollar_value: 114200, in_stock: false},
+            {name : "Aston Martin One-77", horsepower: 750, dollar_value: 1850000, in_stock: true},
+            {name : "Pagani Huayra", horsepower: 700, dollar_value: 1300000, in_stock: false}
+          ];
+
+
+    // 什么是命令式代码
+    let names = [];
+    for (var i = 0; i < CARS.length; i++) {
+    	names.push(CARS[i].name);
+    }
+    go(names.join('')); // Ferrari FFSpyker C12 ZagatoJaguar XKR-SAudi R8Aston Martin One-77Pagani Huayra 
+
+
+    // 什么是声明式代码
+    let cars = CARS.map((car) => car.name); // 不好意思，一下子就解决了呢·
+    go(cars.join('')); // Ferrari FFSpyker C12 ZagatoJaguar XKR-SAudi R8Aston Martin One-77Pagani Huayra
+
+
+
+
+    
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
