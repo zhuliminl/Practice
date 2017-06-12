@@ -35,18 +35,68 @@ let prop = _.curry((property, object) => object[property]);
 
 
 // 下面开始针对获得的 data 设计提取函数
-let getMedia = _.compose(prop('m'), prop('media')); // 针对比较深的数组单独设计一个函数
-let getSrc = _.compose(_.map(getMedia), prop('items')); // 设计完毕。注意 map 操作
+let getMedia = _.compose(prop('m'), prop('media')); 
+// 针对比较深的数组单独设计一个函数
 
-// 开始着手创建 ui
+
+
+	// let getSrc = _.compose(_.map(getMedia), prop('items')); // 设计完毕。注意 map 操作
+
+	// // 开始着手创建 UI
 let img = (url) => $('<img />', { src: url}); // img 工厂
-let images = _.compose(_.map(img), trace('img'), getSrc); // 把获取的地址灌输到数组中去。注意，这里拿到的都是数组
+	// let images = _.compose(_.map(img), trace('img'), getSrc); // 把获取的地址灌输到数组中去。注意，这里拿到的都是数组
+
+
+
+
+// 这里可以优化。利用结合律 —— 两个 map 操作可以合并
+let mediaToImg = _.compose(img, getMedia);
+let images = _.compose(_.map(mediaToImg), prop('items'));
+
+
+
 
 	// // 中途查看我们将会获取什么
 	// let renderImages = _.compose(trace('img'), images); 
 	// // 这个时候我们的调试函数 位置就不一样的。它其实就是个中途偷窥数据节点的一个函数。所以位置很重要
 	// let app = _.compose(Impure.getJSON(renderImages), url);
 
-	
-	
+
+
+
+// 最后完结
+let renderImages = _.compose(Impure.setHtml('body'), images); // 注意我们的 images 其实是 jQuery 对象
+let app = _.compose(Impure.getJSON(renderImages), url);
 app('cats');
+console.dir(app);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
