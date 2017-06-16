@@ -23,56 +23,8 @@
         canvas.style.border = '1px solid #f6f7f8';
         document.body.appendChild(canvas);
 
-        // 转换评分参数，让分布更有规律
-        let adapterVterex = ((vertex) => {
-        	let rank = [20, 40, 60, 80, 100];
-        	for (var i = 0; i < vertex.length; i++) {
-        		for (var i = 0; i < rank.length; i++) {
-        			if(vertex[i] >= rank[i] && vertex[i] <= rank[i+1]) {
-        				vertex[i] = rank[i+1];
-        				break;
-        			}
-        		}
-        	}
-        })(vertex);
-        // 计算位置
-        let sin = (x) => Math.sin(2 * Math.PI / 360 * x),
-            cos = (x) => Math.cos(2 * Math.PI / 360 * x); // 简化余弦函数
-        let R = 120, // 半径基准长度
-            v1_x = 150 - R * (vertex[0] / 100) * cos(18), // 计算各个顶点的位置
-            v1_y = 150 - R * (vertex[0] / 100) * sin(18),
-            v2_x = 150,
-            v2_y = 150 - R * (vertex[1] / 100),
-            v3_x = 150 + R * (vertex[2] / 100) * cos(18),
-            v3_y = 150 - R * (vertex[2] / 100) * sin(18),
-            v4_x = 150 + R * (vertex[3] / 100) * cos(54),
-            v4_y = 150 + R * (vertex[3] / 100) * sin(54),
-            v5_x = 150 - R * (vertex[4] / 100) * cos(54),
-            v5_y = 150 + R * (vertex[4] / 100) * sin(54);
-
-        let ctx = canvas.getContext('2d'); // 创建上下文
-
-        // 开始绘制不等边五边形
-        ctx.save();
-        ctx.strokeStyle = 'rgba(110, 182, 249, 0.9)';
-        ctx.fillStyle = 'rgba(110, 182, 249, 0.1)';
-        ctx.lineJoin = 'round'; // 圆头的效果最好
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-
-        ctx.moveTo(v1_x, v1_y); // 顶点 1
-        ctx.lineTo(v2_x, v2_y); // 顶点 2 
-        ctx.lineTo(v3_x, v3_y); // 顶点 3 
-        ctx.lineTo(v4_x, v4_y); // 顶点 4
-        ctx.lineTo(v5_x, v5_y); // 顶点 5
-
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
-        ctx.restore();
-
         // 创建小圆点
-        let bgPoint = (function() {
+        let bgPoint = function() {
 
             for (let i = 0; i < 5;) {
             	ctx.save();
@@ -84,10 +36,10 @@
                 ctx.restore();
                 i++;
             }
-        })();
+        };
 
         // 绘制背景层叠正五边形
-        let bgGradient = (function() {
+        let bgGradient = function() {
             while (R > 20) { // 绘制层叠效果
                 ctx.save();
                 ctx.strokeStyle = 'rgba(110, 182, 249, 0.1)'; // 颜色的透明值很重要
@@ -108,15 +60,78 @@
                 ctx.fill();
                 ctx.stroke();
                 ctx.restore();
-                R = R - 20;
+                R = R - 20; 
             }
-        })();     
+        };     
+        
+        // 计算五边形顶点位置
+        let sin = (x) => Math.sin(2 * Math.PI / 360 * x),
+            cos = (x) => Math.cos(2 * Math.PI / 360 * x); // 简化余弦函数
+
+        let R = 120; // 半径基准长度
+        let v1_x = 0 - R * (vertex[0] / 100)* cos(18), // 计算各个顶点的位置
+            v1_y = 0 - R * (vertex[0] / 100)* sin(18),
+            v2_x = 0,
+            v2_y = 0 - R * (vertex[1] / 100),
+            v3_x = 0 + R * (vertex[2] / 100) * cos(18),
+            v3_y = 0 - R * (vertex[2] / 100) * sin(18),
+            v4_x = 0 + R * (vertex[3] / 100) * cos(54),
+            v4_y = 0 + R * (vertex[3] / 100) * sin(54),
+            v5_x = 0 - R * (vertex[4] / 100) * cos(54),
+            v5_y = 0 + R * (vertex[4] / 100) * sin(54);
+
+        let ctx = canvas.getContext('2d'); // 创建上下文
+        console.dir(ctx);
+
+        // 如何绘制不等边五边形
+        let draw = function(per) { // 这里需要传入一个百分比参数
+        	ctx.clearRect(0, 0, 300, 300);
+             	
+        	ctx.save();
+        	ctx.translate(150, 150);
+        	ctx.strokeStyle = 'rgba(110, 182, 249, 0.9)';
+        	ctx.fillStyle = 'rgba(110, 182, 249, 0.1)';
+        	ctx.lineJoin = 'round'; // 圆头的效果最好
+        	ctx.lineWidth = 1;
+        	ctx.beginPath();
+
+        	ctx.moveTo(v1_x*per, v1_y*per); // 顶点 1
+        	ctx.lineTo(v2_x*per, v2_y*per); // 顶点 2 
+        	ctx.lineTo(v3_x*per, v3_y*per); // 顶点 3 
+        	ctx.lineTo(v4_x*per, v4_y*per); // 顶点 4
+        	ctx.lineTo(v5_x*per, v5_y*per); // 顶点 5
+
+        	ctx.closePath();
+        	ctx.fill();
+        	ctx.stroke();
+        	ctx.restore();
+
+        	if(per = 1) { // 减少重复创建背景的次数
+        		R = 120;
+        		bgPoint();
+        		bgGradient();
+        	}
+        };
+        
+       	// 渐进动画的方式来展现绘制
+       	let s = 0;
+       	let now = (function() {
+       		for (var i = 0; i < 100; i++) {
+       			setTimeout(function() {
+       				draw(s);
+       				s += 0.01;
+       			}, i*10)
+       		}
+       	})();
+
+
+        
     };
 
 
-    let vertex = [90, 80, 95, 86, 90]; // 初始化各顶点值，也就是电影评分
+    let vertex = [73, 80, 65, 86, 91]; // 初始化各顶点值，也就是电影评分
     let fightClub = new Pentagon('fightClub', vertex); // 实例化一个五边形电影评分对象
-    let = new Pentagon('fightClub', vertex); // 实例化一个五边形电影评分对象
+    // let = new Pentagon('fightClub', vertex); // 实例化一个五边形电影评分对象
     </script>
 </body>
 
