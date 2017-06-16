@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>简单练习</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+</head>
+
+<body>
+    <script type="text/javascript">
+  	
+  	// 根据五边形的顶点来绘制电影评分图
+  	let Pentagon = function(name, vertex) {
+  		// 创建和插入文档
+  		let canvas = document.createElement('canvas');
+  		canvas.setAttribute('id', name);
+  		canvas.width = 300;
+  		canvas.height = 300;
+
+  		canvas.style.border = '1px solid #333';
+  		document.body.appendChild(canvas);
+
+  		// 计算位置
+  		let sin = (x) => Math.sin(2*Math.PI/360*x),
+  			cos = (x) => Math.cos(2*Math.PI/360*x); // 简化余弦函数
+  		let R = 120, // 半径基准长度
+  			v1_x = 150 - R*(vertex[0]/100)*cos(18), // 计算各个顶点的位置
+  			v1_y = 150 - R*(vertex[0]/100)*sin(18),
+  			v2_x = 150,
+  			v2_y = 150 - R*(vertex[1]/100),
+  			v3_x = 150 + R*(vertex[2]/100)*cos(18),
+  			v3_y = 150 - R*(vertex[2]/100)*sin(18),
+  			v4_x = 150 + R*(vertex[3]/100)*cos(54),
+  			v4_y = 150 + R*(vertex[3]/100)*sin(54),
+  			v5_x = 150 - R*(vertex[4]/100)*cos(54),
+  			v5_y = 150 + R*(vertex[4]/100)*sin(54);
+
+  		let ctx = canvas.getContext('2d'); // 创建上下文
+
+  		let bg = (function() { // 绘制背景层叠正五边形
+  			while(R > 20) { // 绘制层叠效果
+  				ctx.save();
+  				ctx.strokeStyle = 'rgba(110, 182, 249, 0.1)'; // 颜色的透明值很重要
+  				ctx.fillStyle = 'rgba(110, 182, 249, 0.1)';
+  				ctx.lineJoin = 'round';
+  				ctx.lineWidth = 1;
+  				
+  				ctx.beginPath();
+  				ctx.translate(150, 150); // 由于是正边形，将原点放到中间更方便绘制
+  				ctx.moveTo(0, -R);
+
+  				for(let i=0;i<5;i++) { // 通过旋转来绘制等边
+  					ctx.rotate(2*Math.PI/5);
+  					ctx.lineTo(0, -R);
+  				}
+  				
+  				ctx.closePath(); 
+  				ctx.fill();
+  				ctx.stroke();
+  				ctx.restore();
+  				R = R - 20;
+  			}
+  		})();
+
+  		// 开始绘制不等边五边形
+  		ctx.save();
+  		ctx.strokeStyle = 'rgba(110, 182, 249, 0.9)';
+  		ctx.fillStyle = 'rgba(110, 182, 249, 0.1)';
+  		ctx.lineJoin = 'round'; // 圆头的效果最好
+  		ctx.lineWidth = 2;
+  		ctx.beginPath();
+
+  		ctx.moveTo(v1_x, v1_y); // 顶点 1
+  		ctx.lineTo(v2_x, v2_y); // 顶点 2 
+  		ctx.lineTo(v3_x, v3_y); // 顶点 3 
+  		ctx.lineTo(v4_x, v4_y); // 顶点 4
+  		ctx.lineTo(v5_x, v5_y); // 顶点 5
+
+  		ctx.closePath(); 
+  		ctx.fill();
+  		ctx.stroke();
+  		ctx.restore();	
+  	};
+
+  	
+  	let vertex = [90, 80, 95, 86, 90]; // 初始化各顶点值，也就是电影评分
+  	let fightClub = new Pentagon('fightClub', vertex); // 实例化一个五边形电影评分对象
+  	let  = new Pentagon('fightClub', vertex); // 实例化一个五边形电影评分对象
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
