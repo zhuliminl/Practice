@@ -19,7 +19,7 @@ DOM 和原生 JavaScript 的一些练习。
 
 ### [框架和模式](https://github.com/zhuliminl/Practice/tree/master/MVC%20%26%20Pattern)
 
-进阶内容。
+积累设计模式
 
 ### [语言特性](https://github.com/zhuliminl/Practice/tree/master/Scope%20%26%20This)
 
