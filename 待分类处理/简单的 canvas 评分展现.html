@@ -83,7 +83,7 @@
             v4_x = 0 + R * (vertex[3] / 100) * cos(54),
             v4_y = 0 + R * (vertex[3] / 100) * sin(54),
             v5_x = 0 - R * (vertex[4] / 100) * cos(54),
-            v5_y = 0 + R * (vertex[4] / 100) * sin(54);Ø
+            v5_y = 0 + R * (vertex[4] / 100) * sin(54);
 
         let ctx = canvas.getContext('2d'); // 创建上下文
 
@@ -130,8 +130,9 @@
 
 
     let vertex = [73, 80, 65, 86, 91]; // 初始化各顶点值，也就是电影评分
+    let vertex1 = [63, 80, 65, 86, 91]; // 初始化各顶点值，也就是电影评分
     let fightClub = new Pentagon('fightClub', vertex, 400, 30); // 实例化一个五边形电影评分对象
-    let oldboy = new Pentagon('fightClub', vertex, 400, 30); // 实例化一个五边形电影评分对象
+    let oldboy = new Pentagon('fightClub', vertex1, 300, 30); // 实例化一个五边形电影评分对象
     let odboy = new Pentagon('fightClub', vertex); // 实例化一个五边形电影评分对象
     </script>
 </body>

@@ -1,5 +1,3 @@
-
-
 let data = [ // 需要的数据。
     {
         id: 'forest',
@@ -48,17 +46,18 @@ let Float = function(data, className, x, y) {
     // 添加调整背景浮动动画事件
     this.img.addEventListener('mousemove', function(e) {
 
-    	let x = e.pageX - e.target.x, // 取到鼠标相对于图片左上角的距离
-    		y = e.pageY - e.target.y;
-    		
-    	let perX = x/(e.target.width) - .5, // 将鼠标位置值转换成偏移系数值。减去 0.5 之后追随鼠标才更加合理
-    		perY = y/(e.target.height) - .5;
+        let x = e.pageX - e.target.x, // 取到鼠标相对于图片左上角的距离
+            y = e.pageY - e.target.y;
 
-    	e.target.style.transform = 'perspective(500px) rotateX(' + 2*perX + 'deg) rotateY(' + 2*-perY + 'deg)';
-    	
-    	console.dir(self.child.offsetLeft);
- 
-    })
+        let perX = x / (e.target.width) - .5, // 将鼠标位置值转换成偏移系数值。减去 0.5 之后追随鼠标才更加合理
+            perY = y / (e.target.height) - .5;
+
+        e.target.style.transform = 'perspective(500px) rotateX(' + 2 * perX + 'deg) rotateY(' + 2 * -perY + 'deg)';
+
+        console.dir(self.child.offsetLeft);
+
+    });
+
 };
 
 Float.prototype = {
@@ -80,6 +79,104 @@ let banner2 = new Float(item2, 'banner', 34, 59);
 
 let element2 = document.getElementById('banner-float');
 banner2.addTobody(element2);
+
+
+
+let dropTarget = document.getElementById('droptarget');
+dropTarget.addEventListener('dragover', (e) => {
+	e.preventDefault();
+
+	
+});
+dropTarget.addEventListener('dragenter', (e) => {
+	e.preventDefault();
+	console.log('已经进入敌区');
+});
+dropTarget.addEventListener('drop', (e) => {
+	e.preventDefault();
+	let data = e.dataTransfer.getData('text');
+	console.log(data);
+	dropTarget.innerHTML = data;
+});
+
+
+
+let drag = document.getElementById('drag-item');
+drag.addEventListener('dragstart', (e) => {
+	console.log(e);
+	e.dataTransfer.setData('text', '郝凤，我喜欢你。你知道吗');
+});
+
+drag.addEventListener('drag', (e) => {
+	// console.log(3);
+});
+drag.addEventListener('dragend', (e) => {
+	// console.log(4);
+});
+
+
+
+var users = [{
+          id : '001',
+          name : '刘亦菲',
+          age : 18
+     },{
+          id : '002',
+          name : '杨幂',
+          age : 19
+     }];
+
+
+
+const req = window.indexedDB.open('saul', 1);
+let db;
+
+req.onsuccess = (e) => {
+    db = e.target.result;
+    console.log(req);
+    
+    let transaction = db.transaction('test');
+
+    console.log(db);
+};
+req.onupgradeneeded = (e) => {
+    console.log("onupgradeneeded");
+
+    let db = e.target.result;
+    // console.log(db);
+
+    db.createObjectStore('test');
+
+    let store = db.createObjectStore('test', { keyPath: 'id', autoIncrement: true});
+    store.createIndex('title', 'title', { unique: true });
+    store.createIndex('name', 'name', { unique: true });
+    store.createIndex('year', 'year', { unique: true });
+
+    var i = 0,
+        len = users.length;
+    while(i<len) {
+        store.add(users[i++]);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

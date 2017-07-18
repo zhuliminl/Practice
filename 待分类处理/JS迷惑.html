@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JS迷惑</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+    
+    let arr = ['1', '2', '3'];
+    console.log(arr.map((x) => parseInt(x)));
+    console.log(arr.map(parseInt));
+
+
+
+    console.log([2,3,2].reduce(Math.pow));
+    console.log(Math.pow(8,2));
+
+
+
+
+    var val = 'smtg';
+    console.log('Value is ' + ((val === 'smtg') ? 'Something' : 'Nothing'));
+    console.log(Math.PI > 4 ? '是的' : '不是');
+
+
+
+    // var name = 'World!';
+    (function () {
+    	// console.log(name); // 变量提升
+        if (typeof name === 'undefined') {
+            var name = 'Jack';
+            console.log('Goodbye ' + name);
+        } else {
+            console.log('Hello ' + name);
+        }
+    })();
+
+
+    console.log(Math.pow(2,52));
+    console.log(Number.MAX_VALUE);
+
+
+
+    let arr1 = [1, 2, 3];
+    arr1[10] = 10;
+
+    let arr2 = [3,4,5,undefined, undefined, undefined];
+    console.log(arr1);
+    console.dir(arr1.filter((x) => x === undefined));
+    console.log(arr2.filter((x) => x === undefined));
+
+
+
+
+    var two   = 0.2
+    var one   = 0.1
+    var eight = 0.8
+    var six   = 0.6
+    console.log([two - one , eight - six ]);
+
+
+
+
+
+
+
+    function showCase(value) {
+        switch(value) {
+        case 'A':
+            console.log('Case A');
+            break;
+        case 'B':
+            console.log('Case B');
+            break;
+        case undefined:
+            console.log('undefined');
+            break;
+        default:
+            console.log('Do not know!');
+        }
+    }
+    showCase(new String('A'));
+    showCase('A');
+    console.log('A' === new String('A'));
+    console.log(typeof String(1) === 'string');
+
+
+    console.log(-9 % 2);
+
+
+
+    console.dir(Array.isArray(Array.prototype));
+
+
+    console.log(1+ -+ + +-+1);
+    console.log(1+-+ + 1);
+    console.log(1- -1);
+    console.log(- -1);
+    console.log(+-+1);
+    console.log(Number.MIN_VALUE);
+    console.log(1 < 2 < 3);
+    console.log(3 < 2 < 1);
+    console.log((3 < 2) < 1);
+
+
+
+    console.log(3.3.toString());
+
+
+
+    (function() {
+    	let x = y = 1;
+    })()
+    console.log(y);
+    // console.log(x); // error
+
+    let a = {name: 'saul'};
+    let b = {name: 'saul'};
+    console.log(a===b);
+    console.log(a==b);
+
+
+
+    console.log([1,2,3].toString());
+
+
+
+    let obj = {}, proto = Object.prototype;
+    console.dir(obj);
+    console.dir(Object);
+
+    console.log(obj.__proto__ === proto);
+    console.log(obj.prototype); // undefined
+    console.log(Object.getPrototypeOf(obj) === proto);
+    console.log(Object.getPrototypeOf(obj) === obj.__proto__);
+
+
+
+    function foo() {};
+    console.dir(foo);
+
+    console.log(('1 2 3').replace(/\d/g, parseInt));
+    console.log(parseInt(18, 0));
+    console.log(parseInt(2, 2)); // 二进制里面没有2
+    console.log(parseInt(3, 4));
+
+    let lowerCaseOnly = /^[a-z]+$/;
+    console.log(lowerCaseOnly.test(null));
+    console.log(lowerCaseOnly.test(undefined));
+
+
+    console.log([,,,].join(','));
+    console.log([,,,]);
+    console.log([undefined,undefined,undefined].join(','));
+
+    console.log([2,4,4,]) // 注意最后一个逗号
+
+
+
+
+
+    console.dir(Function.length);
+    console.dir(new Function().length);
+    console.dir(new Function());
+
+
+
+
+
+
+    console.dir(Date(0));
+    console.dir(new Date(0));
+    console.dir(new Date());
+
+
+
+
+    console.dir(Math.min());
+    console.dir(Math.max());
+    console.dir(Math.max() < Math.min());
+
+
+    console.dir(a = new Date('2016-03-19'));
+    console.dir(b = new Date('2016,03,19'));
+    console.log(a.getDate() === b.getDate());
+    console.log(b.getDate());
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>
