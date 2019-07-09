@@ -26,13 +26,13 @@
     testTruthy(new Boolean(false));
     testTruthy(new Array);
     testTruthy(''); //空字符串
-    testTruthy('some'); //非空字符串				
-    testTruthy(1); //				
-    testTruthy(-1); //				
-    testTruthy(new String); //对象始终为真				
+    testTruthy('some'); //非空字符串
+    testTruthy(1); //
+    testTruthy(-1); //
+    testTruthy(new String); //对象始终为真
     testTruthy(NaN); //非数字为假
-    testTruthy(new Number(NaN)); //对象始终为真	
-    testTruthy({}); //对象始终为真	
+    testTruthy(new Number(NaN)); //对象始终为真
+    testTruthy({}); //对象始终为真
 
     var obj = {
         name: 'John'

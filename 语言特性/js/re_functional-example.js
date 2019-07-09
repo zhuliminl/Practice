@@ -16,11 +16,11 @@ let Impure = {
 	})
 };
 
-// url 查询 
+// url 查询
 let url = (word) => 'https://api.flickr.com/services/feeds/photos_public.gne?tags=' + word + '&format=json&jsoncallback=?';
 
 // 自己定义 prop
-let prop = _.curry((property, object) => object[property]);  
+let prop = _.curry((property, object) => object[property]);
 /**
  * 记住必须对函数柯里化了才能用。
  * 直观上可以说 object 这个参数可以说是被等待状态，
@@ -35,7 +35,7 @@ let prop = _.curry((property, object) => object[property]);
 
 
 // 下面开始针对获得的 data 设计提取函数
-let getMedia = _.compose(prop('m'), prop('media')); 
+let getMedia = _.compose(prop('m'), prop('media'));
 // 针对比较深的数组单独设计一个函数
 
 
@@ -57,18 +57,18 @@ let images = _.compose(_.map(mediaToImg), prop('items'));
 
 
 	// // 中途查看我们将会获取什么
-	// let renderImages = _.compose(trace('img'), images); 
+	// let renderImages = _.compose(trace('img'), images);
 	// // 这个时候我们的调试函数 位置就不一样的。它其实就是个中途偷窥数据节点的一个函数。所以位置很重要
 	// let app = _.compose(Impure.getJSON(renderImages), url);
 
 
 
 
-// 最后完结
+// 最后完harles
 let renderImages = _.compose(Impure.setHtml('body'), images); // 注意我们的 images 其实是 jQuery 对象
 let app = _.compose(Impure.getJSON(renderImages), url);
 app('cats');
-console.dir(app);
+console.dir(_.compose(Impure.getJSON(trace('response')), url)('cats'));
 
 
 

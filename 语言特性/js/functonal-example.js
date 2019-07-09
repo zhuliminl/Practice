@@ -29,9 +29,12 @@ let url = (term) => 'https://api.flickr.com/services/feeds/photos_public.gne?tag
 // go(app('cats'));
 
 // 自己来写一个 prop 函数，来获取对象中嵌套的属性
+// object 放后面
 let prop = _.curry((property, object) => object[property]); // 很简单的 [] 访问语法而已
+let props = _.curry((property, object) => object[property])
 
 let mediaUrl = _.compose(prop('m'), prop('media')); // 在数组 items 中找到图片链接路径
+// 拿到所有的图片地址列表
 let srcs = _.compose( _.map(mediaUrl), prop('items')); // 对外部对象进行抽取。
 /** 
  * 感觉这里理解代码思维应该是倒着阅读的

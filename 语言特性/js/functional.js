@@ -198,11 +198,11 @@ function test() {
     // 函数的柯里化其实和函数绑定相似，只不过柯里化还可以对返回的函数传递参数
     // 来看看 curry 实现原理
     function curry(fn) { // 被柯里化的函数，以及参数
-        let args = Array.prototype.slice.call(arguments, 1); // 参数 fn 之后的参数
+        let args = Array.prototype.slice.call(arguments, 1); // 参数 fn 之后的第一次的参数
         return function() {
-            let innerArgs = Array.prototype.slice.call(arguments); // 拿到所有的参数
+            let innerArgs = Array.prototype.slice.call(arguments); // 拿到剩余的参数
             let finalArgs = args.concat(innerArgs); // 合并
-            return fn.apply(null, finalArgs);
+            return fn.apply(null, finalArgs);      // 执行
         };
     };
 
@@ -419,6 +419,7 @@ function test() {
     }
 
     let isLastInStock = R.compose(R.prop('in_stock'), R.last); // 需要的那么一点参数，放这里的了。感觉还是不纯
+    let isLastInStock = R.compose(R.prop('in_stock'), R.last)
     go(isLastInStock(CARS)); // false 
 
 
@@ -426,6 +427,7 @@ function test() {
     // 练习2
     // 获取第一个 CARS 的 name
     let nameOfFirstCar = R.compose(R.prop('name'), R.head); // 同上
+    let nameOfFirstCar = R.compose(R.props('name'), R.head)
     go(nameOfFirstCar(CARS));
 
     // 练习3
@@ -442,6 +444,7 @@ function test() {
 
     let _average = function(xs) { return R.reduce(R.add, 0, xs) / xs.length; };
 
+    // 从外层往里读
     let averageDollarValue = _.compose(_average, _.map(_.prop('dollar_value'))); // 类型需要对得上
     go(averageDollarValue(CARS));
 
@@ -459,6 +462,7 @@ function test() {
     let _underscore = _.replace(/\W+/g, '_');
 
     let sanitizeNames = _.map(_.compose(_underscore, _.toLower));
+    let sanitizeNames = _.map(_.compose(_unnderscore, _.toLower))
 
     go(sanitizeNames(['Hello World', 'I Love You'])); // ['hello_world', 'i_love_you']
 
@@ -469,6 +473,7 @@ function test() {
     // 重构 availablePrices
     let availableTable = _.filter(_.prop('in_stock'));
     let getAvailableValue = _.compose(_.join(','), _.map(_.prop('dollar_value')), availableTable);
+    // 关键词 map filter 都是数组二维操作的标识模式
     go(getAvailableValue(CARS));
 
 

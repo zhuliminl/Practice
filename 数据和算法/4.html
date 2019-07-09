@@ -38,7 +38,7 @@
 		this.print = function() {
 			console.log(items.toString());
 		};
-	} 
+	}
 
 	showTitle('使用Queue类');
 	var queue = new Queue();
@@ -75,10 +75,10 @@
 						items.splice(i, 0, queueElement); //优先级比较后添加到
 						added = true; //状态改变
 						break; //一旦找到比它小的就跳出循环
-					} 
+					}
 				}
 
-				if(!added) { 
+				if(!added) {
 				//这段代码的执行只可能是上面遍历数组的条件一次都没满足过，也就是添加的新元素的优先值比其他的所有都大，这样added的状态才一直没有被改变过
 				items.push(queueElement); //直接加在队列后面
 
@@ -131,7 +131,7 @@
 	workPrioriry.enqueue('自由', 9);
 	workPrioriry.print();
 
-	showTitle('循环队列————击鼓传花');   
+	showTitle('循环队列————击鼓传花');
 
 	function hotPotato(nameList, num) { //烫手的山芋游戏
 		var queue = new Queue();
@@ -150,7 +150,7 @@
 
 		return queue.dequeue(); //弹出剩下的一个，它是赢家
 
-	}   
+	}
 
 	var names = ['胡杰', '卢祖江', '罗林', '海哥哥', '慧橙', '陆森森'];
 	var winner = hotPotato(names, 2 );
@@ -159,7 +159,7 @@
 
 
 
-		
+
 	</script>
 
 </body>

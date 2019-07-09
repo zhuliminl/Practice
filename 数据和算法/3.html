@@ -28,7 +28,7 @@
 			var items = [];
 
 			this.push = function(element) {
-				items.push(element);			
+				items.push(element);
 			};
 
 			this.pop = function() {
@@ -87,14 +87,14 @@
 				rem = Math.floor(decNumber % base);
 				remStack.push(rem);
 				decNumber = Math.floor(decNumber / base); //循环遍历
-			}			
+			}
 
-			while(!remStack.isEmpty()) { //通过pop弹出元素的方法逐步缩减数组，最后用是否为空来进行判断 
+			while(!remStack.isEmpty()) { //通过pop弹出元素的方法逐步缩减数组，最后用是否为空来进行判断
 				// binaryString += remStack.pop().toString();
 				binaryString += digits[remStack.pop()];//注意这里访问字符串的方法
 			}
 			return binaryString;
-		} 
+		}
 
 		console.log(divideBy2(35, 16));
 		console.log(divideBy2(172, 16));
