@@ -2,6 +2,7 @@ let go = (x) => console.dir(x);
 let _ = R;
 
 
+/*
 // 函数式编程
 function test() {
 
@@ -195,13 +196,12 @@ function test() {
 
 
 
-    // 函数的柯里化其实和函数绑定相似，只不过柯里化还可以对返回的函数传递参数
     // 来看看 curry 实现原理
     function curry(fn) { // 被柯里化的函数，以及参数
-        let args = Array.prototype.slice.call(arguments, 1); // 参数 fn 之后的第一次的参数
+        let argsFirstTime = Array.prototype.slice.call(arguments, 1); // 因为第一个参数是 fn，其余的参数为 fn 的首次局部参数
         return function() {
-            let innerArgs = Array.prototype.slice.call(arguments); // 拿到剩余的参数
-            let finalArgs = args.concat(innerArgs); // 合并
+            let innerArgs = Array.prototype.slice.call(arguments); // 第二次运行时给的参数，也就是剩余参数
+            let finalArgs = argsFirstTime.concat(innerArgs); // 首次参数和剩余参数合并上
             return fn.apply(null, finalArgs);      // 执行
         };
     };
@@ -550,10 +550,8 @@ function test() {
 
 
 
-
-    
-
 }
+  */
 
 
 
